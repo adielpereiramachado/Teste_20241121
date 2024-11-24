@@ -11,6 +11,6 @@ O desafio consiste em realizar testes contra serviços de API e WEB disponíveis
 * Nesta seção, foram realizados testes em um site público, com o objetivo de avaliar a usabilidade, performance e segurança da aplicação.
 
 ## Estrutura do Repositório
-* **[Teste_API](https://github.com/adielpereiramachado/Github_Cursos/tree/main/Desafios/06_Preparacao_Teste_Emprego_Be_Talent/Teste_API "Teste_API"):** Contém todos os artefatos relacionados aos testes da API, incluindo planos de teste, scripts, relatórios e evidências.
-* **[Teste_WEB](https://github.com/adielpereiramachado/Github_Cursos/tree/main/Desafios/06_Preparacao_Teste_Emprego_Be_Talent/Teste_WEB "Teste_WEB"):** Contém todos os artefatos relacionados aos testes da aplicação Web, incluindo planos de teste, scripts, relatórios e evidências.
+* **[Teste_API](https://github.com/adielpereiramachado/Teste_20241121/tree/main/Teste_API "Teste_API"):** Contém todos os artefatos relacionados aos testes da API, incluindo planos de teste, scripts, relatórios e evidências.
+* **[Teste_WEB](https://github.com/adielpereiramachado/Teste_20241121/tree/main/Teste_WEB "Teste_WEB"):** Contém todos os artefatos relacionados aos testes da aplicação Web, incluindo planos de teste, scripts, relatórios e evidências.
 
