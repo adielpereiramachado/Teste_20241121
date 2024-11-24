@@ -1,0 +1,566 @@
+,,,,,,
+Cenário de Teste:,"Verificação da Criação do Token ""2.2.1.1 Gerar token de autenticação""",,,,,
+,,,,,,
+,Pré-Condição:,"Ter acesso às credenciais corretas para ""username"" : ""admin"" e ""password"" : ""password123""",,,,
+,,,,,,
+,Caso de Teste,Descrição do teste,Resultado esperado,Resultado Obtido,Status,Observação
+,CTK-01,Passar credenciais corretas para criação com sucesso do Token,"Deve permitir a criação do Token com retorno de exemplo:
+{
+    ""token"": ""abc123""
+}
+Verificar caracteristicas do body da resposta. Tem de ter um campo ""token"" sendo string. 
+*Teste de verificação dentro da requisição.",Criou Token,OK,-
+,CTK-02,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,OK,-
+,CTK-03,Idem anterior,"Verificação do Status de Resposta (Status Code). O Status Code deve ser 200.
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,-
+,CTK-04,Idem anterior,"Verificar o Schema da resposta. O schema dessa resposta deve ser: type: ""array"",
+    items: {
+        type: ""object"",
+        properties: {
+            bookingid: {
+                type: ""integer""
+            }
+        },
+        required: [""bookingid""]
+    }
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,-
+,,,,,,
+,,,,,,
+Cenário de Teste:,"Verificação da Criação do Token com Problema ""2.2.1.2 Tentar gerar token com credenciais inválidas""",,,,,
+,,,,,,
+,Pré-Condição:,"Ter acesso às credenciais INcorretas para ""username""  e ""password"" ",,,,
+,,,,,,
+,Caso de Teste,Descrição do teste,Resultado esperado,Resultado Obtido,Status,Observação
+,CTKP-01,"Passar credenciais INcorretas para tentativa de criação do Token (Passada Usuário: Ok / Senha: NOK)
+2.2.1.2.b Tentar gerar token com credenciais inválidas SenhaErrada- CreateToken","Não deve criar o Token e retorno deve ser conforme exemplo:
+{
+     ""reason"": ""Bad credentials""
+}",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-02,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-03,Idem anterior,"Verificação do Status de Resposta (Status Code). O Status Code deve ser 200.
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-04,Idem anterior,"Verificar conteúdo da resposta. Tem de ter um campo ""reason"" com valor ""Bad credentials"" sendo string .
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-05,Idem anterior,"Verificar o Schema da resposta. ""O schema dessa resposta deve ser: type: {
+""""type"""": """"object"""",
+  """"properties"""": {
+    """"reason"""": {
+      """"type"""": """"string""""
+    }
+  },
+  """"required"""": [
+    """"reason""""
+  ]
+    }""
+
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-06,"Passar credenciais INcorretas para tentativa de criação do Token (Passada Usuário: NOk / Senha: OK)
+2.2.1.2.c Tentar gerar token com credenciais inválidas - CreateToken - user errado","Não deve criar o Token e retorno deve ser conforme exemplo:
+{
+     ""reason"": ""Bad credentials""
+}",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-07,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-08,Idem anterior,"Verificação do Status de Resposta (Status Code). O Status Code deve ser 200.
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-09,Idem anterior,"Verificar conteúdo da resposta. Tem de ter um campo ""reason"" com valor ""Bad credentials"" sendo string .
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-10,Idem anterior,"Verificar o Schema da resposta. ""O schema dessa resposta deve ser: type: {
+""""type"""": """"object"""",
+  """"properties"""": {
+    """"reason"""": {
+      """"type"""": """"string""""
+    }
+  },
+  """"required"""": [
+    """"reason""""
+  ]
+    }""
+
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-11,"Passar credenciais INcorretas para tentativa de criação do Token (Passada Usuário: NOk / Senha: NOK)
+2.2.1.2.d Tentar gerar token com credenciais inválidas - CreateToken - senha e password errados","Não deve criar o Token e retorno deve ser conforme exemplo:
+{
+     ""reason"": ""Bad credentials""
+}",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-12,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-13,Idem anterior,"Verificação do Status de Resposta (Status Code). O Status Code deve ser 200.
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-14,Idem anterior,"Verificar conteúdo da resposta. Tem de ter um campo ""reason"" com valor ""Bad credentials"" sendo string .
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,Ok,
+,CTKP-15,Idem anterior,"Verificar o Schema da resposta. ""O schema dessa resposta deve ser: type: {
+""""type"""": """"object"""",
+  """"properties"""": {
+    """"reason"""": {
+      """"type"""": """"string""""
+    }
+  },
+  """"required"""": [
+    """"reason""""
+  ]
+    }""
+
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,Ok,
+,,,,,,
+Cenário de Teste:,"Verificação da Criação de uma Nova Reserva ""2.2.2.1 Criar uma nova reserva """,,,,,
+,,,,,,
+,Pré-Condição:,-,,,,
+,,,,,,
+,Caso de Teste,Descrição do teste,Resultado esperado,Resultado Obtido,Status,Observação
+,CNR-01,"Criação de uma Reserva nova no sistema conforme: 
+{
+    ""firstname"" : ""PrimeiroNome"",
+    ""lastname"" : ""SobreNome"",
+    ""totalprice"" : 123,
+    ""depositpaid"" : true,
+    ""bookingdates"" : {
+        ""checkin"" : ""2024-02-05"",
+        ""checkout"" : ""2024-03-20""
+    },
+    ""additionalneeds"" : ""Breakfast""
+}
+2.2.2.1 Criar uma nova reserva - CreateBooking","Deve permitir a criação de uma nova reserva e retornar (ID muda):
+    ""bookingid"": 3488,
+    ""booking"": {
+        ""firstname"": ""PrimeiroNome"",
+        ""lastname"": ""SobreNome"",
+        ""totalprice"": 123,
+        ""depositpaid"": true,
+        ""bookingdates"": {
+            ""checkin"": ""2025-02-05"",
+            ""checkout"": ""2025-03-20""
+        },
+        ""additionalneeds"": ""Breakfast""
+    }
+",Resultado Obtido igual ao Resultado esperado,OK,
+,CNR-02,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,OK,
+,CNR-03,Idem anterior,"Verificação do Status de Resposta (Status Code). O Status Code deve ser 200.
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,
+,CNR-04,Idem anterior,"Verificar o Schema da resposta. O schema dessa resposta deve ser: type: ""array"",
+    items: 
+    ""title"": ""Generated schema for Root"",
+    ""type"": ""object"",
+    ""properties"": {
+    ""bookingid"": {
+      ""type"": ""number""
+    },
+    ""booking"": {
+      ""type"": ""object"",
+      ""properties"": {
+        ""firstname"": {
+          ""type"": ""string""
+        },
+        ""lastname"": {
+          ""type"": ""string""
+        },
+        ""totalprice"": {
+          ""type"": ""number""
+        },
+        ""depositpaid"": {
+          ""type"": ""boolean""
+        },
+        ""bookingdates"": {
+          ""type"": ""object"",
+          ""properties"": {
+            ""checkin"": {
+              ""type"": ""string""
+            },
+            ""checkout"": {
+              ""type"": ""string""
+            }
+          },
+          ""required"": [
+            ""checkin"",
+            ""checkout""
+          ]
+        },
+        ""additionalneeds"": {
+          ""type"": ""string""
+        }
+      },
+      ""required"": [
+        ""firstname"",
+        ""lastname"",
+        ""totalprice"",
+        ""depositpaid"",
+        ""bookingdates"",
+        ""additionalneeds""
+      ]
+    }
+  },
+  ""required"": [
+    ""bookingid"",
+    ""booking""
+  ]
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,
+,CNR-05,"Tentar criar nova reserva passando Data Chekin maior que Data Checkout
+2.2.2.1.b Criar uma Nova Reserva passando chekin maior checou- CreateBooking - CNR-02-05","Sistema poderia recusar criação, exibindo mensagem de erro",Sistema permitiu a criação da reserva mesmo passando data Chekin maior que data Chekout.,NOK,"Para esse teste considerei que não deveria ser correto acatar a criação da reserva e por isso o Status Code deveria ser diferente de 200, no caso cito por exemplo 500."
+,CNR-06,Idem anterior,"Sistema poderia exibir Status Code diferente de 200, p.ex.: 500 - Internal Server Error",Sistema poderia exibir Status Code p.ex.: 500 - Internal Server Error indicando algum problema por conta da Data Checkin ser maior que Data checkout,NOK,"Para esse teste considerei que não deveria ser correto acatar a criação da reserva e por isso o Status Code deveria ser diferente de 200, no caso cito por exemplo 500."
+,CNR-07,"Tentar criar nova reserva NÃO passando Data Checkin
+2.2.2.1.c Criar uma Nova Reserva sem data chekin - CreateBooking - CNR-07-08-09","Sistema poderia recusar criação, exibindo mensagem de erro",Sistema permitiu a criação da reserva mesmo passando data Chekin vazia,NOK,"Para esse teste considerei que não deveria ser correto acatar a criação da reserva sem Data Chekin e por isso o Status Code deveria ser diferente de 200, no caso cito por exemplo 500."
+,CNR-08,Idem anterior,"Sistema poderia exibir Status Code diferente de 200, p.ex.: 500 - Internal Server Error",Sistema permitiu a criação da reserva mesmo passando data Chekin vazia,NOK,"Para esse teste considerei que não deveria ser correto acatar a criação da reserva sem Data Chekin e por isso o Status Code deveria ser diferente de 200, no caso cito por exemplo 500."
+,CNR-09,Idem anterior,"Verificar o Schema da resposta. O schema dessa resposta deve por sinaç não deve acatar resposta.
+",Tendo em vista que acatou a requisição ,NOK,"Não tem esse ponto na espec. considerei que o retonro para uma solicitação indevida poderia ser p.ex.: [], mas poderia mudar conforme espec."
+,,,,,,
+,,,,,,
+Cenário de Teste:,"Verificação de Busca de Reserva Específica ""2.2.2.2 Buscar uma reserva específica""",,,,,
+,,,,,,
+,Pré-Condição:,"Existir uma reserva criada no Sistema. Para meus testes, uso dados dos registros que passo para criar uma reserva para fazer as buscas.",,,,
+,,,,,,
+,Caso de Teste,Descrição do teste,Resultado esperado,Resultado Obtido,Status,Observação
+,BRE-01,"Fazendo busca de uma reserva existente no Sistema passando um ID recém criado
+2.2.2.2 Buscar uma Reserva Específica - GetBooking","Deve exibir dados mais detalhados da reserva: 
+{
+    ""firstname"": ""PrimeiroNome"",
+    ""lastname"": ""SobreNome"",
+    ""totalprice"": 123,
+    ""depositpaid"": true,
+    ""bookingdates"": {
+        ""checkin"": ""2025-02-05"",
+        ""checkout"": ""2025-03-20""
+    },
+    ""additionalneeds"": ""Breakfast""
+}",Resultado Obtido igual ao Resultado esperado,OK,Melhoria: Poderia retornar o ID para fazer validação.
+,BRE-02,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,OK,
+,BRE-03,Idem anterior,"Verificação do Status de Resposta (Status Code). O Status Code deve ser 200.
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,
+,BRE-04,Idem anterior,"Verificar o Schema da resposta. O schema dessa resposta deve ser: type: ""array"",
+    items: 
+""type"": ""object"",
+  ""properties"": {
+    ""firstname"": {
+      ""type"": ""string""
+    },
+    ""lastname"": {
+      ""type"": ""string""
+    },
+    ""totalprice"": {
+      ""type"": ""number""
+    },
+    ""depositpaid"": {
+      ""type"": ""boolean""
+    },
+    ""bookingdates"": {
+      ""type"": ""object"",
+      ""properties"": {
+        ""checkin"": {
+          ""type"": ""string""
+        },
+        ""checkout"": {
+          ""type"": ""string""
+        }
+      },
+      ""required"": [
+        ""checkin"",
+        ""checkout""
+      ]
+    },
+    ""additionalneeds"": {
+      ""type"": ""string""
+    }
+  },
+  ""required"": [
+    ""firstname"",
+    ""lastname"",
+    ""totalprice"",
+    ""depositpaid"",
+    ""bookingdates"",
+    ""additionalneeds""
+  ]
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,
+,BRE-05,"Fazendo busca de uma reserva INexistente no Sistema
+2.2.2.2.b Buscar uma Reserva Específica - Inexistente - GetBooking","Não deve exibir dados mais detalhados da reserva, por não ter localizado. Ao invés disso, pode exibir mensagem de erro.",Resultado Obtido igual ao Resultado esperado,OK,
+,BRE-06,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,OK,
+,BRE-07,Idem anterior,"Verificação do Status de Resposta (Status Code). O Status Code deve ser 404.
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,Não achei na espec. mas considerei correto que devesse realmente retornar 404 not founf
+,,,,,,
+,,,,,,
+Cenário de Teste:,"Verificação de Busca de TODAS as reservas ""2.2.2.3 Listar todas as reservas""",,,,,
+,,,,,,
+,Pré-Condição:,Existir uma reserva criada no Sistema.,,,,
+,,,,,,
+,Caso de Teste,Descrição do teste,Resultado esperado,Resultado Obtido,Status,Observação
+,BTR-01,"Fazendo busca de todas reservas existente no Sistema
+2.2.2.3 Listar todas as reservas - GetBookingIds","Deve exibir dados mais detalhados da reserva: 
+[
+    {
+        ""bookingid"": 1916
+    },
+    {
+        ""bookingid"": 822
+    },
+    {
+        ""bookingid"": 517
+    }
+]",Resultado Obtido igual ao Resultado esperado,OK,
+,BTR-02,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,OK,
+,BTR-03,Idem anterior,"Verificação do Status de Resposta (Status Code). O Status Code deve ser 200.
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,
+,BTR-04,Idem anterior,"Verificar o Schema da resposta. O schema dessa resposta deve ser: type: ""array"",
+    items: 
+""type"": ""array"",
+  ""items"": {
+    ""type"": ""object"",
+    ""properties"": {
+      ""bookingid"": {
+        ""type"": ""number""
+      }
+    },
+    ""required"": [
+      ""bookingid""
+    ]
+  }
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,
+,,,,,,
+,,,,,,
+Cenário de Teste:,"Verificação da Atualização de uma Reserva Existente ""2.2.2.4 Atualizar uma reserva existente """,,,,,
+,,,,,,
+,Pré-Condição:,Existir uma reserva criada no Sistema.,,,,
+,,,,,,
+,Caso de Teste,Descrição do teste,Resultado esperado,Resultado Obtido,Status,Observação
+,ARE-01,"Fazendo uma alteração de uma reserva existente no Sistema
+2.2.2.4 Atualizar uma Reserva Existente - UpdateBooking","Deve atualizar o resgitro com os novos valores e exibir os dados em detalhe da reserva já alterada: 
+{
+    ""firstname"": ""PrimeiroNome Modificado"",
+    ""lastname"": ""Sobre Nome"",
+    ""totalprice"": 111,
+    ""depositpaid"": true,
+    ""bookingdates"": {
+        ""checkin"": ""2025-01-02"",
+        ""checkout"": ""2026-01-02""
+    },
+    ""additionalneeds"": ""Breakfast""
+}",Resultado Obtido igual ao Resultado esperado,OK,
+,ARE-02,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,OK,
+,ARE-03,Idem anterior,"Verificação do Status de Resposta (Status Code). O Status Code deve ser 200.
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,
+,ARE-04,Idem anterior,"Verificar o Schema da resposta. O schema dessa resposta deve ser: type: ""array"",
+    items: 
+""type"": ""object"",
+  ""properties"": {
+    ""firstname"": {
+      ""type"": ""string""
+    },
+    ""lastname"": {
+      ""type"": ""string""
+    },
+    ""totalprice"": {
+      ""type"": ""number""
+    },
+    ""depositpaid"": {
+      ""type"": ""boolean""
+    },
+    ""bookingdates"": {
+      ""type"": ""object"",
+      ""properties"": {
+        ""checkin"": {
+          ""type"": ""string"",
+          ""format"": ""date""
+        },
+        ""checkout"": {
+          ""type"": ""string"",
+          ""format"": ""date""
+        }
+      },
+      ""required"": [
+        ""checkin"",
+        ""checkout""
+      ]
+    },
+    ""additionalneeds"": {
+      ""type"": ""string""
+    }
+  },
+  ""required"": [
+    ""firstname"",
+    ""lastname"",
+    ""totalprice"",
+    ""depositpaid"",
+    ""bookingdates"",
+    ""additionalneeds""
+  ]
+}
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,
+,ARE-05,"Atualizando uma reserva Deixando o nome em branco. Verificar se o campo ""firstname"" possui um valor diferente de vazio.
+2.2.2.4.b Atualizar uma reserva existente - UpdateBooking - ARE-05-07-08",Sistema não deveria permitir esse tipo de atualização e retornar algum tipo de mensagem de erro,Permitiu alteração do Nome para deixar o Nome em branco (apagou o nome),NOK,"Na espec. não faz menção a essa situação, mas considerei um problema ter permitido deixar o nome em branco.
+Sugiro revisão da espec."
+,ARE-06,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,OK,
+,ARE-07,Idem anterior,"Verificação do Status de Resposta (Status Code). O Status Code deve ser  diferente de 200, p.ex.: 400,404,409 ou 422
+*Teste de verificação dentro da requisição.",Sistema retornou Status Code 200,NOK,"Na espec. não faz menção a essa situação, mas considerei ser um problema permitir apagar Nome e por tanto exibir Status code 200.
+Sugiro revisão da espec."
+,ARE-08,Idem anterior,O Campo Nome não pode ser apagado ficando em branco,"Ficou em branco, o Sistema permitiu Apagar o Nome",NOK,"Na espec. não faz menção a essa situação, mas considerei um problema ter permitido deixar o nome em branco.
+Sugiro revisão da espec."
+,,,,,,
+,,,,,,
+Cenário de Teste:,"Verificação de Deletar uma Reserva ""2.2.2.5 Deletar uma reserva""",,,,,
+,,,,,,
+,Pré-Condição:,Existir uma reserva criada no Sistema.,,,,
+,,,,,,
+,Caso de Teste,Descrição do teste,Resultado esperado,Resultado Obtido,Status,Observação
+,DR-01,"Passar uma reserva existente para deletar.
+2.2.2.5 Deletar uma reserva - DeleteBooking - DR-03-04",Sistema deve acatar solicitação e deletar o registo.,Resultado Obtido igual ao Resultado esperado,OK,
+,DR-02,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,OK,
+,DR-03,Idem anterior,"Verificação do Status de Resposta (Status Code). Na espec. diz ""200"" e cita também, ""201""). Para ambos considero incorreto, no caso acho 202 ou 204 a melhor alternativa
+*Teste de verificação dentro da requisição.","Não exibe 202 nem 204, mas sim 201 que é associado a criação de registro.",NOK,"Considerei um problema a descrição na espec. para esse item. 
+Está descrito que o Status Code deve ser 200 e no exemplo 201.
+Sugiro revisão da espec."
+,DR-04,Idem anterior,"Verificar o Schema da resposta. O schema dessa resposta deve ser (texto): Created.
+Considero incorreto, no caso essa descrição, onde penso que deveria exibir algum texto fazendo menção a deltear o registro.
+*Teste de verificação dentro da requisição.",Exibe texto Created e não um texto fazendo menção que o registro foi deletado,NOK,"Considerei um problema a descrição na espec. para esse item. 
+Está descrito que deve exibir o texto 'Created'. 
+Sugiro revisão da espec."
+,DR-05,"Passar uma reserva INexistente para deletar.
+2.2.2.5.b Deletar uma Reserva - DeleteBooking - DR-07-08",Sistema NÃO deve permitir/acatar essa requisição até por que não existe o registro,"Ok, não permitiu.",OK,
+,DR-06,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,OK,
+,DR-07,Idem anterior,"Verificação do Status de Resposta (Status Code). Na espec. não localizei, sendo assim considerei o Status Code mais adequado como sendo 404.
+*Teste de verificação dentro da requisição.",Está retornando Status Code 405 e não me parece o mais indicado.,NOK,Não identifiquei na espec. qual seria o comportamento esperado para quando passar um Id insexiste para ser deletado.
+,DR-08,Idem anterior,"Verificar caracteristicas do body da resposta. 
+*Teste de verificação dentro da requisição.","Está retornando ""Method Not Allowed"", não me parece ser o mais indicado para essa situação em que o Método es´ta correto, só não localizou a reserva para deletar.",NOK,Não identifiquei na espec. qual seria o comportamento esperado para quando passar um Id insexiste para ser deletado.
+,,,,,,
+,,,,,,
+Cenário de Teste:,"Verificação da Busca de uma Reserva por Nome ""2.2.3.1 Buscar reservas por nome """,,,,,
+,,,,,,
+,Pré-Condição:,Existir uma reserva criada no Sistema e com ciência do Nome.,,,,
+,,,,,,
+,Caso de Teste,Descrição do teste,Resultado esperado,Resultado Obtido,Status,Observação
+,BRN-01,Fazendo busca de reservas passando Nome que tem reserva no Sistema,"Deve exibir o ID da reserva encontrada com mesmo nome passado: 
+[
+    {
+        ""bookingid"": 1272
+    }
+]",Resultado Obtido igual ao Resultado esperado,OK,-
+,BRN-02,Idem anterior,"Verificação do Status de Resposta (Status Code). O Status Code deve ser 200.
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,-
+,BRN-03,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,OK,-
+,BRN-04,Idem anterior,"Verificar o Schema da resposta. O schema dessa resposta deve ser: type: ""array"",
+    items: 
+type: ""array"",
+    items: {
+        type: ""object"",
+        properties: {
+            bookingid: {
+                type: ""integer""
+            }
+        },
+        required: [""bookingid""]
+    }
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,-
+,BRN-05,Fazendo busca de reservas passando Nome que NÃO tem reserva no Sistema. 2.2.3.1.b Buscar reservas por nome - GetBookingIds ,"O sistema não vai localizar reserva e deve exibir: 
+[]",Resultado Obtido igual ao Resultado esperado,OK,-
+,,,,,,
+,,,,,,
+Cenário de Teste:,"Verificação da Busca de uma Reserva por Data ChekIn ""2.2.3.2 Buscar reservas por data de check-in""",,,,,
+,,,,,,
+,Pré-Condição:,Existir uma reserva criada no Sistema e com ciência da Data Checkin.,,,,
+,,,,,,
+,Caso de Teste,Descrição do teste,Resultado esperado,Resultado Obtido,Status,Observação
+,BRCI-01,"Passar data Checkin IGUAL Data cadastrada na criação da reserva.
+2.2.3.2 Buscar reservas por data de check-in - GetBookingIds - BRCI-01","Deve exibir o ID da reserva encontrada: 
+[
+    {
+        ""bookingid"": 1272
+    }
+]",Não exibiu o registro de reserva criado.,NOK,-
+,BRCI-02,Idem anterior,"Verificação do Status de Resposta (Status Code). O Status Code deve ser 200.
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,
+,BRCI-03,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,OK,
+,BRCI-04,Idem anterior,"Verificar o Schema da resposta. O schema dessa resposta deve ser: type: ""array"",
+    items: 
+type: ""array"",
+    items: {
+        type: ""object"",
+        properties: {
+            bookingid: {
+                type: ""integer""
+            }
+        },
+        required: [""bookingid""]
+    }
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,
+,BRCI-05,"Passar data Checkin MENOR Data cadastrada na criação da reserva.
+2.2.3.2.b Buscar reservas por data MENOS 1 DIA do check-in - GetBookingIds","Deve exibir o ID da reserva encontrada. 
+[
+    {
+        ""bookingid"": 1272
+    }
+]",Resultado Obtido igual ao Resultado esperado,OK,-
+,BRCI-06,"Passar data Checkin MAIOR Data cadastrada na criação da reserva.
+2.2.3.2.c Buscar reservas por data MAIS 1 DIA do check-in - GetBookingIds","O sistema não vai localizar reserva e deve exibir: 
+[]",Resultado Obtido igual ao Resultado esperado,OK,-
+,BRCI-07,"Passar data Checkin inválida pex. 2023-02-31
+2.2.3.2.d Buscar reservas por data do check-in INválidas- GetBookingIds BRCI-07-08",Sistema não deve acatar uma solicitação com data Inválida.,Não está tratando para quando data inválida e está trazendo a reserva criada após a 'data' passada na requisiçao.,NOK,"Não está descrito na escpec. mas acredito que deveria, sobre tratamento de datas inválidas.O Sistema está acatando a data passada na requisição, fazendo dar impressão de os campos não estão configurados como data."
+,BRCI-08,Idem anterior,API pode tratar essa requisição e retornar alguma mensagem de erro (p.ex.: 500),Não está tratando para quando data inválida e está trazendo a reserva criada após a 'data' passada na requisiçao. Está retornando Status Code 200.,NOK,"Não está descrito na escpec. mas acredito que deveria, sobre tratamento de datas inválidas.O Sistema está acatando a data passada na requisição, fazendo dar impressão de os campos não estão configurados como data."
+,,,,,,
+,,,,,,
+Cenário de Teste:,"Verificação da Busca de uma Reserva por Data ChekOut ""2.2.3.3 Buscar reservas por data de check-out """,,,,,
+,,,,,,
+,Pré-Condição:,Existir uma reserva criada no Sistema e com ciência da Data Checkout,,,,
+,,,,,,
+,Caso de Teste,Descrição do teste,Resultado esperado,Resultado Obtido,Status,Observação
+,BRCO-01,"Passar data Checkout IGUAL Data cadastrada na criação da reserva.
+2.2.3.3 Buscar reservas por data de check-out - GetBookingIds","Deve exibir o ID da reserva encontrada: 
+[
+    {
+        ""bookingid"": 1272
+    }
+]",Exibiu o registro de reserva criado conforme o esperado.,OK,
+,BRCO-02,Idem anterior,"Verificação do Status de Resposta (Status Code). O Status Code deve ser 200.
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,-
+,BRCO-03,Idem anterior,"Simulei uma necessidade da resposta ser exibida em no máximo 2 segundos.
+*Teste de verificação dentro da requisição.
+** Criação minha, não consta na espec.",Resultado Obtido igual ao Resultado esperado,OK,-
+,BRCO-04,Idem anterior,"Verificar o Schema da resposta. O schema dessa resposta deve ser: type: ""array"",
+    items: 
+type: ""array"",
+    items: {
+        type: ""object"",
+        properties: {
+            bookingid: {
+                type: ""integer""
+            }
+        },
+        required: [""bookingid""]
+    }
+*Teste de verificação dentro da requisição.",Resultado Obtido igual ao Resultado esperado,OK,-
+,BRCO-05,"Passar data Checkout MENOR Data cadastrada na criação da reserva.
+2.2.3.3.b Buscar reservas por data MENOS 1 DIA do check-out - GetBookingIds - BRCO-05","Deve exibir o ID da reserva encontrada: 
+[
+    {
+        ""bookingid"": 1272
+    }
+]",Não exibiu o registro de reserva criado conforme o esperado.,NOK,"Na espec. diz: Return bookings that have a checkout date greater than or equal to the set checkout date. Format must be CCYY-MM-DD
+Sendo assim, prosegui com esse critério nesta minha avaliação, apesar de achar estranho.
+Sugestão: Indicar revisão da regra."
+,BRCO-06,"Passar data Checkout MAIOR Data cadastrada na criação da reserva.
+2.2.3.3.c Buscar reservas por data MAIS 1 DIA do check-out - GetBookingIds - BRCO-06","O sistema não deve localizar reserva e deve exibir: 
+[] 
+ou exibir bookingid de outros registros que satisfaçam o critério.",Exibiu o registro de reserva criado conforme o esperado.,NOK,"Na espec. diz: Return bookings that have a checkout date greater than or equal to the set checkout date. Format must be CCYY-MM-DD
+Sendo assim, prosegui com esse critério nesta minha avaliação, apesar de achar estranho.
+Sugestão: Indicar revisão da regra."

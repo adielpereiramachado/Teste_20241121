@@ -1,0 +1,3010 @@
+{
+	"info": {
+		"_postman_id": "6d245611-aeec-4c31-bd08-108344ccb257",
+		"name": "Testes_API_RestFull_Booker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39953197"
+	},
+	"item": [
+		{
+			"name": "Buscar uma reserva específica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/booking/720\n",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking",
+						"720\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.1.1 Gerar token de autenticação - CreateToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar caracteristicas do body da respsota\r",
+							"pm.test(\"Verificar caracteristicas do Token da resposta.\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"token\");\r",
+							"    pm.expect(jsonData.token).to.be.a(\"string\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Salva valor nas variaveis GLobais\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.globals.set(\"authToken\", jsonData.token);\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da resposta\r",
+							"//Definindo o schema padrão\r",
+							"const schema = {\r",
+							"    type: \"object\",\r",
+							"    properties: {\r",
+							"        token: { type: \"string\" }\r",
+							"    },\r",
+							"    required: [\"token\"]\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"password123\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/auth",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.1.2.b Tentar gerar token com credenciais inválidas - CreateToken - password errado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo máximo de menor que 2 seg\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"//Verificar o código de resposta se é igual a 200\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"//Verificar conteúdo do Token da resposta. Deve ser:'Bad credentials'.\r",
+							"pm.test(\"Verificar conteúdo do Token da resposta. Deve ser:'Bad credentials'.\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"reason\");\r",
+							"    pm.expect(jsonData.reason).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.reason).to.be.equals(\"Bad credentials\");\r",
+							"});\r",
+							"\r",
+							"//Verificar caracteristicas do Token da resposta.\r",
+							"pm.test(\"Verificar caracteristicas do Token da resposta.\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"reason\");\r",
+							"    pm.expect(jsonData.reason).to.be.a(\"string\");\r",
+							"});\r",
+							"\r",
+							"//Verificar o schema de retorno\r",
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"reason\": {\r",
+							"            \"type\": \"string\"\r",
+							"        }\r",
+							"    },\r",
+							"    \"required\": [\r",
+							"        \"reason\"\r",
+							"    ]\r",
+							"};\r",
+							"const response = pm.response.json();\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"//Verificar se o valor de authToken NÃO foi alterado\r",
+							"pm.test(\"Verificar se o valor de authToken foi alterado\", function () {\r",
+							"    pm.expect(pm.globals.get(\"authToken\")).to.not.eql(\"authToken_antiga\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"password_errada\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/auth",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.1.2.c Tentar gerar token com credenciais inválidas - CreateToken - user errado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verificar conteúdo do Token da resposta. Deve ser:'Bad credentials'.\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"reason\");\r",
+							"    pm.expect(jsonData.reason).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.reason).to.be.equals(\"Bad credentials\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar caracteristicas do body da respsota\r",
+							"pm.test(\"Verificar caracteristicas do Token da resposta.\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"reason\");\r",
+							"    pm.expect(jsonData.reason).to.be.a(\"string\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da\r",
+							"//Definindo o schema da resposta\r",
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"reason\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"reason\"\r",
+							"  ]\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"user_errado\",\r\n  \"password\": \"password123\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/auth",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.1.2.d Tentar gerar token com credenciais inválidas - CreateToken - senha e password errados",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verificar conteúdo do Token da resposta. Deve ser:'Bad credentials'.\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"reason\");\r",
+							"    pm.expect(jsonData.reason).to.be.a(\"string\");\r",
+							"    pm.expect(jsonData.reason).to.be.equals(\"Bad credentials\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar caracteristicas do body da respsota\r",
+							"pm.test(\"Verificar caracteristicas do Token da resposta.\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"reason\");\r",
+							"    pm.expect(jsonData.reason).to.be.a(\"string\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da\r",
+							"//Definindo o schema da resposta\r",
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"reason\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"reason\"\r",
+							"  ]\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar se o valor de authToken NÃO foi alterado\r",
+							"pm.test(\"Verificar se o valor de authToken foi alterado\", function () {\r",
+							"    pm.expect(pm.globals.get(\"authToken\")).to.not.eql(\"authToken_antiga\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Obtém o valor da variável global \"authToken\"\r",
+							"const authToken_antiga = pm.globals.get(\"authToken\");\r",
+							"\r",
+							"// Salva o valor \"authToken\" em uma nova variável global\r",
+							"    pm.globals.set(\"authToken_antiga\", authToken_antiga);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"user_errado\",\r\n  \"password\": \"password_errada\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/auth",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.2.1 Criar uma nova reserva - CreateBooking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da resposta\r",
+							"//Definindo o schema padrão\r",
+							"const schema = {\r",
+							"    //\"title\": \"Generated schema for Root\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"    \"bookingid\": {\r",
+							"      \"type\": \"number\"\r",
+							"    },\r",
+							"    \"booking\": {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"firstname\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"lastname\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"totalprice\": {\r",
+							"          \"type\": \"number\"\r",
+							"        },\r",
+							"        \"depositpaid\": {\r",
+							"          \"type\": \"boolean\"\r",
+							"        },\r",
+							"        \"bookingdates\": {\r",
+							"          \"type\": \"object\",\r",
+							"          \"properties\": {\r",
+							"            \"checkin\": {\r",
+							"              \"type\": \"string\",\r",
+							"              \"format\": \"date\"\r",
+							"            },\r",
+							"            \"checkout\": {\r",
+							"              \"type\": \"string\",\r",
+							"              \"format\": \"date\"\r",
+							"            }\r",
+							"          },\r",
+							"          \"required\": [\r",
+							"            \"checkin\",\r",
+							"            \"checkout\"\r",
+							"          ]\r",
+							"        },\r",
+							"        \"additionalneeds\": {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"firstname\",\r",
+							"        \"lastname\",\r",
+							"        \"totalprice\",\r",
+							"        \"depositpaid\",\r",
+							"        \"bookingdates\",\r",
+							"        \"additionalneeds\"\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"bookingid\",\r",
+							"    \"booking\"\r",
+							"  ]\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Obtém o corpo da resposta como JSON\r",
+							"//const response = pm.response.json();\r",
+							"\r",
+							"// Verifica se o campo \"bookingid\" existe\r",
+							"if (response.bookingid) {\r",
+							"    // Salva o valor do \"bookingid\" em uma variável global\r",
+							"    pm.globals.set(\"ID_RESERVA\", response.bookingid);\r",
+							"    console.log(\"O valor do bookingid foi salvo na variável global ID_RESERVA:\", response.bookingid);\r",
+							"} else {\r",
+							"    console.log(\"O campo 'bookingid' não foi encontrado na resposta.\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							"//Verifica campo primeiro nome e salva em variavel\r",
+							"if (response.booking && response.booking.firstname) {\r",
+							"    const firstname = response.booking.firstname;\r",
+							"\r",
+							"    // Salva o valor de firstname em uma variável global\r",
+							"    pm.globals.set(\"PRIMEIRO_NOME\", firstname);\r",
+							"\r",
+							"    // Exibe o valor no console para verificação\r",
+							"    console.log(\"Valor do campo firstname:\", firstname);\r",
+							"} else {\r",
+							"    console.log(\"O campo 'firstname' não foi encontrado na resposta.\");\r",
+							"}\r",
+							"\r",
+							"//Verifica campo sobre nome e salva em variavel\r",
+							"if (response.booking && response.booking.lastname) {\r",
+							"    const lastname = response.booking.lastname;\r",
+							"\r",
+							"    // Salva o valor de lastname em uma variável global\r",
+							"    pm.globals.set(\"SOBRE_NOME\", lastname);\r",
+							"\r",
+							"    // Exibe o valor no console para verificação\r",
+							"    console.log(\"Valor do campo lastname:\", lastname);\r",
+							"} else {\r",
+							"    console.log(\"O campo 'lastname' não foi encontrado na resposta.\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							"//Verifica campo Data Checkin e salva em variavel\r",
+							"if (response.booking && response.booking.bookingdates && response.booking.bookingdates.checkin) {\r",
+							"    const checkin = response.booking.bookingdates.checkin;\r",
+							"\r",
+							"    // Salva o valor de Checkin em uma variável global\r",
+							"    pm.globals.set(\"DATA_CHECKIN\", checkin);\r",
+							"\r",
+							"    // Exibe o valor no console para verificação\r",
+							"    console.log(\"Valor do campo DATA_CHECKIN:\", checkin);\r",
+							"} else {\r",
+							"    console.log(\"O campo 'checkin' não foi encontrado na resposta.\");\r",
+							"}\r",
+							"\r",
+							"//Verifica campo Data Checkout e salva em variavel\r",
+							"if (response.booking && response.booking.bookingdates && response.booking.bookingdates.checkout) {\r",
+							"    const checkout = response.booking.bookingdates.checkout;\r",
+							"\r",
+							"    // Salva o valor de checkout em uma variável global\r",
+							"    pm.globals.set(\"DATA_CHECKOUT\", checkout);\r",
+							"\r",
+							"    // Exibe o valor no console para verificação\r",
+							"    console.log(\"Valor do campo DATA_CHECKOUT:\", checkout);\r",
+							"} else {\r",
+							"    console.log(\"O campo 'checkout' não foi encontrado na resposta.\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Criando DATA_CHECKIN_MENOS_1_DIA\r",
+							"// Obtenha a data de checkin da variável global\r",
+							"let checkinDate = pm.globals.get(\"DATA_CHECKIN\");\r",
+							"\r",
+							"if (checkinDate) {\r",
+							"    // Converta a data para o formato Date\r",
+							"    let checkin = new Date(checkinDate);\r",
+							"\r",
+							"    // Valida se a conversão foi bem-sucedida\r",
+							"    if (!isNaN(checkin.getTime())) {\r",
+							"        // Diminuir  1 dia\r",
+							"        checkin.setDate(checkin.getDate() - 1);\r",
+							"\r",
+							"        // Formate a nova data no padrão ISO (YYYY-MM-DD)\r",
+							"        let newCheckinDate = checkin.toISOString().split('T')[0];\r",
+							"\r",
+							"        // Salve a nova data em uma variável global\r",
+							"        pm.globals.set(\"DATA_CHECKIN_MENOS_1_DIA\", newCheckinDate);\r",
+							"\r",
+							"        // Log para conferência\r",
+							"        console.log(\"Data original de checkin:\", checkinDate);\r",
+							"        console.log(\"Nova data de checkin (menos 1 dia):\", newCheckinDate);\r",
+							"    } else {\r",
+							"        console.error(\"A data obtida de DATA_CHECKIN é inválida:\", checkinDate);\r",
+							"    }\r",
+							"} else {\r",
+							"    console.error(\"A variável global DATA_CHECKIN está vazia ou não foi definida.\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							"//Criando DATA_CHECKIN_MAIS_1_DIA\r",
+							"// Obtenha a data de checkin da variável global\r",
+							"//let checkinDate = pm.globals.get(\"DATA_CHECKIN\");\r",
+							"\r",
+							"if (checkinDate) {\r",
+							"    // Converta a data para o formato Date\r",
+							"    let checkin = new Date(checkinDate);\r",
+							"\r",
+							"    // Valida se a conversão foi bem-sucedida\r",
+							"    if (!isNaN(checkin.getTime())) {\r",
+							"        // Somar 1 dia\r",
+							"        checkin.setDate(checkin.getDate() + 1);\r",
+							"\r",
+							"        // Formate a nova data no padrão ISO (YYYY-MM-DD)\r",
+							"        let newCheckinDate = checkin.toISOString().split('T')[0];\r",
+							"\r",
+							"        // Salve a nova data em uma variável global\r",
+							"        pm.globals.set(\"DATA_CHECKIN_MAIS_1_DIA\", newCheckinDate);\r",
+							"\r",
+							"        // Log para conferência\r",
+							"        console.log(\"Data original de checkin:\", checkinDate);\r",
+							"        console.log(\"Nova data de checkin (mmais 1 dia):\", newCheckinDate);\r",
+							"    } else {\r",
+							"        console.error(\"A data obtida de DATA_CHECKIN é inválida:\", checkinDate);\r",
+							"    }\r",
+							"} else {\r",
+							"    console.error(\"A variável global DATA_CHECKIN está vazia ou não foi definida.\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Criando DATA_CHECKOUT_MENOS_1_DIA\r",
+							"// Obtenha a data de checkout da variável global\r",
+							"let checkoutDate = pm.globals.get(\"DATA_CHECKOUT\");\r",
+							"\r",
+							"if (checkoutDate) {\r",
+							"    // Converta a data para o formato Date\r",
+							"    let checkout = new Date(checkoutDate);\r",
+							"\r",
+							"    // Valida se a conversão foi bem-sucedida\r",
+							"    if (!isNaN(checkout.getTime())) {\r",
+							"        // Diminuir  1 dia\r",
+							"        checkout.setDate(checkout.getDate() - 1);\r",
+							"\r",
+							"        // Formate a nova data no padrão ISO (YYYY-MM-DD)\r",
+							"        let newCheckoutDate = checkout.toISOString().split('T')[0];\r",
+							"\r",
+							"        // Salve a nova data em uma variável global\r",
+							"        pm.globals.set(\"DATA_CHECKOUT_MENOS_1_DIA\", newCheckoutDate);\r",
+							"\r",
+							"        // Log para conferência\r",
+							"        console.log(\"Data original de checkout:\", checkoutDate);\r",
+							"        console.log(\"Nova data de checkout (menos 1 dia):\", newCheckoutDate);\r",
+							"    } else {\r",
+							"        console.error(\"A data obtida de DATA_CHECKOUT é inválida:\", checkoutDate);\r",
+							"    }\r",
+							"} else {\r",
+							"    console.error(\"A variável global DATA_CHECKOUT está vazia ou não foi definida.\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							"//Criando DATA_CHECKOUT_MAIS_1_DIA\r",
+							"// Obtenha a data de checkout da variável global\r",
+							"//let checkoutDate = pm.globals.get(\"DATA_checkout\");\r",
+							"\r",
+							"if (checkoutDate) {\r",
+							"    // Converta a data para o formato Date\r",
+							"    let checkout = new Date(checkoutDate);\r",
+							"\r",
+							"    // Valida se a conversão foi bem-sucedida\r",
+							"    if (!isNaN(checkout.getTime())) {\r",
+							"        // Diminuir  1 dia\r",
+							"        checkout.setDate(checkout.getDate() + 1);\r",
+							"\r",
+							"        // Formate a nova data no padrão ISO (YYYY-MM-DD)\r",
+							"        let newCheckoutDate = checkout.toISOString().split('T')[0];\r",
+							"\r",
+							"        // Salve a nova data em uma variável global\r",
+							"        pm.globals.set(\"DATA_CHECKOUT_MAIS_1_DIA\", newCheckoutDate);\r",
+							"\r",
+							"        // Log para conferência\r",
+							"        console.log(\"Data original de checkout:\", checkoutDate);\r",
+							"        console.log(\"Nova data de checkout (mais 1 dia):\", newCheckoutDate);\r",
+							"    } else {\r",
+							"        console.error(\"A data obtida de DATA_CHECKOUT é inválida:\", checkoutDate);\r",
+							"    }\r",
+							"} else {\r",
+							"    console.error(\"A variável global DATA_CHECKOUT está vazia ou não foi definida.\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\" : \"PrimeiroNome\",\r\n    \"lastname\" : \"SobreNome\",\r\n    \"totalprice\" : 123,\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"2025-02-05\",\r\n        \"checkout\" : \"2025-03-20\"\r\n    },\r\n    \"additionalneeds\" : \"Breakfast\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.2.1.b Criar uma Nova Reserva passando chekin maior checou- CreateBooking - NOK2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 500\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(500);\r",
+							"});\r",
+							"if (pm.response.code === 500) {\r",
+							"    console.log(\"Erro 500 retornado pela API.\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da resposta\r",
+							"//Definindo o schema padrão\r",
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"    \"bookingid\": {\r",
+							"      \"type\": \"number\"\r",
+							"    },\r",
+							"    \"booking\": {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"firstname\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"lastname\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"totalprice\": {\r",
+							"          \"type\": \"number\"\r",
+							"        },\r",
+							"        \"depositpaid\": {\r",
+							"          \"type\": \"boolean\"\r",
+							"        },\r",
+							"        \"bookingdates\": {\r",
+							"          \"type\": \"object\",\r",
+							"          \"properties\": {\r",
+							"            \"checkin\": {\r",
+							"              \"type\": \"string\",\r",
+							"              \"format\": \"date\"\r",
+							"            },\r",
+							"            \"checkout\": {\r",
+							"              \"type\": \"string\",\r",
+							"              \"format\": \"date\"\r",
+							"            }\r",
+							"          },\r",
+							"          \"required\": [\r",
+							"            \"checkin\",\r",
+							"            \"checkout\"\r",
+							"          ]\r",
+							"        },\r",
+							"        \"additionalneeds\": {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"firstname\",\r",
+							"        \"lastname\",\r",
+							"        \"totalprice\",\r",
+							"        \"depositpaid\",\r",
+							"        \"bookingdates\",\r",
+							"        \"additionalneeds\"\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"bookingid\",\r",
+							"    \"booking\"\r",
+							"  ]\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\" : \"PrimeiroNome\",\r\n    \"lastname\" : \"SobreNome\",\r\n    \"totalprice\" : 123,\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"2025-12-05\",\r\n        \"checkout\" : \"2025-03-20\"\r\n    },\r\n    \"additionalneeds\" : \"Breakfast\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.2.1.c Criar uma Nova Reserva sem data chekin - CreateBooking - NOK2,3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 500\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(500);\r",
+							"});\r",
+							"if (pm.response.code === 500) {\r",
+							"    console.log(\"Erro 500 retornado pela API.\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da resposta\r",
+							"//Definindo o schema padrão\r",
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"    \"bookingid\": {\r",
+							"      \"type\": \"number\"\r",
+							"    },\r",
+							"    \"booking\": {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"firstname\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"lastname\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"totalprice\": {\r",
+							"          \"type\": \"number\"\r",
+							"        },\r",
+							"        \"depositpaid\": {\r",
+							"          \"type\": \"boolean\"\r",
+							"        },\r",
+							"        \"bookingdates\": {\r",
+							"          \"type\": \"object\",\r",
+							"          \"properties\": {\r",
+							"            \"checkin\": {\r",
+							"              \"type\": \"string\",\r",
+							"              \"format\": \"date\"\r",
+							"            },\r",
+							"            \"checkout\": {\r",
+							"              \"type\": \"string\",\r",
+							"              \"format\": \"date\"\r",
+							"            }\r",
+							"          },\r",
+							"          \"required\": [\r",
+							"            \"checkin\",\r",
+							"            \"checkout\"\r",
+							"          ]\r",
+							"        },\r",
+							"        \"additionalneeds\": {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"firstname\",\r",
+							"        \"lastname\",\r",
+							"        \"totalprice\",\r",
+							"        \"depositpaid\",\r",
+							"        \"bookingdates\",\r",
+							"        \"additionalneeds\"\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"bookingid\",\r",
+							"    \"booking\"\r",
+							"  ]\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\" : \"PrimeiroNome\",\r\n    \"lastname\" : \"SobreNome\",\r\n    \"totalprice\" : 123,\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"\",\r\n        \"checkout\" : \"2025-03-20\"\r\n    },\r\n    \"additionalneeds\" : \"Breakfast\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.2.2 Buscar uma Reserva Específica - GetBooking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da resposta\r",
+							"//Definindo o schema padrão\r",
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"firstname\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"lastname\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"totalprice\": {\r",
+							"      \"type\": \"number\"\r",
+							"    },\r",
+							"    \"depositpaid\": {\r",
+							"      \"type\": \"boolean\"\r",
+							"    },\r",
+							"    \"bookingdates\": {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"checkin\": {\r",
+							"          \"type\": \"string\",\r",
+							"          \"format\": \"date\"\r",
+							"        },\r",
+							"        \"checkout\": {\r",
+							"          \"type\": \"string\",\r",
+							"          \"format\": \"date\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"checkin\",\r",
+							"        \"checkout\"\r",
+							"      ]\r",
+							"    },\r",
+							"    \"additionalneeds\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"firstname\",\r",
+							"    \"lastname\",\r",
+							"    \"totalprice\",\r",
+							"    \"depositpaid\",\r",
+							"    \"bookingdates\",\r",
+							"    \"additionalneeds\"\r",
+							"  ]\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/booking/:id",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{ID_RESERVA}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.2.2.b Buscar uma reserva específica - GetBooking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 404\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(404);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar conteúdo da resposta\r",
+							"const responseText = pm.response.text();\r",
+							"// Testar se o retorno é Not Found\r",
+							"pm.test(\"Verificar se o conteúdo retornado é Not Found\", function () {\r",
+							"    pm.expect(responseText).to.equal(\"Not Found\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/booking/:id",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "99887766"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.2.3 Listar todas as reservas - GetBookingIds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da resposta\r",
+							"//Definindo o schema padrão\r",
+							"const schema = {\r",
+							"  \"type\": \"array\",\r",
+							"  \"items\": {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"      \"bookingid\": {\r",
+							"        \"type\": \"number\"\r",
+							"      }\r",
+							"    },\r",
+							"    \"required\": [\r",
+							"      \"bookingid\"\r",
+							"    ]\r",
+							"  }\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"/* usando para debuging\r",
+							"\r",
+							"// Define o ID que você quer verificar\r",
+							"const expectedBookingId = pm.globals.get(\"ID_RESERVA\");\r",
+							"//const expectedBookingId = {ID_RESERVA};\r",
+							"\r",
+							"\r",
+							"// Obtém o corpo da resposta\r",
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"// Verifica se o bookingid está presente na lista\r",
+							"const isBookingIdFound = jsonData.some(item => item.bookingid === expectedBookingId);\r",
+							"\r",
+							"// Teste para validar a presença do bookingid\r",
+							"pm.test(`O bookingid ${expectedBookingId} está presente na resposta`, function () {\r",
+							"    pm.expect(isBookingIdFound).to.be.true;\r",
+							"});\r",
+							"\r",
+							"// Caso queira logar o resultado\r",
+							"if (isBookingIdFound) {\r",
+							"    console.log(`O bookingid ${expectedBookingId} foi encontrado na resposta.`);\r",
+							"} else {\r",
+							"    console.log(`O bookingid ${expectedBookingId} NÃO foi encontrado na resposta.`);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Contagem Total registros //\r",
+							"// Parse o response JSON\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Verifique se a resposta é um array\r",
+							"if (Array.isArray(response)) {\r",
+							"    // Conta o número de registros no array\r",
+							"    const totalRegistros = response.length;\r",
+							"// Log para visualização\r",
+							"    console.log(`Número total de registros retornados: ${totalRegistros}`);\r",
+							"} else {\r",
+							"    console.error(\"A resposta não é um array.\");\r",
+							"}\r",
+							"\r",
+							"*/"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_URL}}/booking",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking"
+					]
+				},
+				"description": "# Get Booking\n\nThis endpoint sends an HTTP GET request to retrieve booking information.\n\n### Response\n\n- Status: 200\n    \n- Content-Type: application/json\n    \n\nThe response will contain an array of booking objects, with each object containing a \"bookingid\" key.\n\nTo define the value of the constant expectedBookingId as the variable ID_RESERVA, you can use the response data from the \"bookingid\" field."
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.2.4 Atualizar uma Reserva Existente - UpdateBooking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da resposta\r",
+							"//Definindo o schema padrão\r",
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"firstname\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"lastname\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"totalprice\": {\r",
+							"      \"type\": \"number\"\r",
+							"    },\r",
+							"    \"depositpaid\": {\r",
+							"      \"type\": \"boolean\"\r",
+							"    },\r",
+							"    \"bookingdates\": {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"checkin\": {\r",
+							"          \"type\": \"string\",\r",
+							"          \"format\": \"date\"\r",
+							"        },\r",
+							"        \"checkout\": {\r",
+							"          \"type\": \"string\",\r",
+							"          \"format\": \"date\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"checkin\",\r",
+							"        \"checkout\"\r",
+							"      ]\r",
+							"    },\r",
+							"    \"additionalneeds\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"firstname\",\r",
+							"    \"lastname\",\r",
+							"    \"totalprice\",\r",
+							"    \"depositpaid\",\r",
+							"    \"bookingdates\",\r",
+							"    \"additionalneeds\"\r",
+							"  ]\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Armazenar o valor esperado para o campo firstname\r",
+							"const expectedFirstname = \"PrimeiroNome Modificado\";\r",
+							"// Valida se o campo 'firstname\" foi atualizado corretamente\r",
+							"pm.test(\"Verificar se campo firstname foi atualizado corretamente\", function () {\r",
+							"    pm.expect(response.firstname).to.eql(expectedFirstname);\r",
+							"});\r",
+							"// Logando\r",
+							"console.log(\"Valor do campo firstname no retorno:\", response.firstname);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\" : \"PrimeiroNome Modificado\",\r\n    \"lastname\" : \"Sobre Nome\",\r\n    \"totalprice\" : 111,\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"2025-01-02\",\r\n        \"checkout\" : \"2026-01-02\"\r\n    },\r\n    \"additionalneeds\" : \"Breakfast\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking/:id",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{ID_RESERVA}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.2.4.b Atualizar uma reserva existente - UpdateBooking - NOK2,4,5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar se o Status Code é igual a 400 ou 404, 409, 422\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400, 404,409,422]);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da resposta\r",
+							"//Definindo o schema padrão\r",
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"firstname\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"lastname\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"totalprice\": {\r",
+							"      \"type\": \"number\"\r",
+							"    },\r",
+							"    \"depositpaid\": {\r",
+							"      \"type\": \"boolean\"\r",
+							"    },\r",
+							"    \"bookingdates\": {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"checkin\": {\r",
+							"          \"type\": \"string\",\r",
+							"          \"format\": \"date\"\r",
+							"        },\r",
+							"        \"checkout\": {\r",
+							"          \"type\": \"string\",\r",
+							"          \"format\": \"date\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"checkin\",\r",
+							"        \"checkout\"\r",
+							"      ]\r",
+							"    },\r",
+							"    \"additionalneeds\": {\r",
+							"      \"type\": \"string\"\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"firstname\",\r",
+							"    \"lastname\",\r",
+							"    \"totalprice\",\r",
+							"    \"depositpaid\",\r",
+							"    \"bookingdates\",\r",
+							"    \"additionalneeds\"\r",
+							"  ]\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Verificar se o campo \"firstname\" possui um valor diferente de vazio\r",
+							"pm.test(\"O campo 'firstname' não deve estar vazio\", function () {\r",
+							"    pm.expect(response.firstname).to.be.a(\"string\").and.not.empty;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Armazenar o valor esperado para o campo firstNAme\r",
+							"const expectedFirstname = \"PrimeiroNome\";\r",
+							"// Valida se o campo 'firstname' foi atualizado corretamente\r",
+							"pm.test(`Verificar se o campo firstname NÃO foi atualizado corretamente, deve continuar ${expectedFirstname}`, function () {\r",
+							"    pm.expect(response.firstname).to.eql(expectedFirstname);\r",
+							"});\r",
+							"// Logando\r",
+							"console.log(`exibindo valor do campo firstname no retorno que deve ser ${expectedFirstname}:`, response.firstname);\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\" : \"\",\r\n    \"lastname\" : \"Sobre Nome\",\r\n    \"totalprice\" : 111,\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"2025-01-02\",\r\n        \"checkout\" : \"2026-01-02\"\r\n    },\r\n    \"additionalneeds\" : \"Breakfast\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking/:id",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{ID_RESERVA}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.3.1 Buscar reservas por nome - GetBookingIds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"BRN-03:Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"BRN-02:Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da resposta\r",
+							"//Definindo o schema padrão\r",
+							"const schema = {\r",
+							"    type: \"array\",\r",
+							"    items: {\r",
+							"        type: \"object\",\r",
+							"        properties: {\r",
+							"            bookingid: {\r",
+							"                type: \"integer\"\r",
+							"            }\r",
+							"        },\r",
+							"        required: [\"bookingid\"]\r",
+							"    }\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"BRN-04:Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Vefificar se o ID_RESERVA é exibida na resposta (Deve exibir)\r",
+							"// Obtenha o valor da variável global\r",
+							"const expectedId = parseInt(pm.globals.get(\"ID_RESERVA\"), 10); // Converte para número\r",
+							"// Verifique se o ID está presente\r",
+							"const isIdFound = response.some(item => item.bookingid === expectedId);\r",
+							"// Teste para verificar a presença do ID\r",
+							"pm.test(`BRN-01,05:O bookingid ${expectedId} (recem criado) está presente no retorno`, function () {\r",
+							"    pm.expect(isIdFound).to.be.true;\r",
+							"});\r",
+							"// Log adicional (opcional)\r",
+							"if (isIdFound) {\r",
+							"    console.log(`O bookingid ${expectedId} foi encontrado no retorno.`);\r",
+							"} else {\r",
+							"    console.error(`O bookingid ${expectedId} não foi encontrado no retorno.`);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Contagem Total registros //\r",
+							"// Parse o response JSON\r",
+							"//const response = pm.response.json();\r",
+							"// Verifique se a resposta é um array\r",
+							"if (Array.isArray(response)) {\r",
+							"    // Conta o número de registros no array\r",
+							"    const totalRegistros = response.length;\r",
+							"// Log para visualização\r",
+							"    console.log(`Número total de registros retornados: ${totalRegistros}`);\r",
+							"} else {\r",
+							"    console.error(\"A resposta não é um array.\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking?firstname={{PRIMEIRO_NOME}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "firstname",
+							"value": "{{PRIMEIRO_NOME}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.3.1.b Buscar reservas por nome - GetBookingIds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar conteúdo da resposta\r",
+							"const responseText = pm.response.text();\r",
+							"// Testar se o retorno é []\r",
+							"pm.test(\"Verificar se o conteúdo retornado é []\", function () {\r",
+							"    pm.expect(responseText).to.equal(\"[]\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking?firstname=NomeInexistenteNoSistema",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "firstname",
+							"value": "NomeInexistenteNoSistema"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.3.2 Buscar reservas por data de check-in - GetBookingIds - NOK-BRCI-01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"BRCI-03:Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"BRCI-02:Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da\r",
+							"//Define o schema\r",
+							"const schema = {\r",
+							"    type: \"array\",\r",
+							"    items: {\r",
+							"        type: \"object\",\r",
+							"        properties: {\r",
+							"            bookingid: {\r",
+							"                type: \"integer\"\r",
+							"            }\r",
+							"        },\r",
+							"        required: [\"bookingid\"]\r",
+							"    }\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"BRCI-04:Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Vefificar se o ID_RESERVA é exibida na resposta (Deve exibir)\r",
+							"// Obtenha o valor da variável global\r",
+							"const expectedId = parseInt(pm.globals.get(\"ID_RESERVA\"), 10); // Converte para número\r",
+							"// Verifique se o ID está presente\r",
+							"const isIdFound = response.some(item => item.bookingid === expectedId);\r",
+							"// Teste para verificar a presença do ID\r",
+							"let DATA_CHECKIN = pm.globals.get(\"DATA_CHECKIN\");\r",
+							"let DATA_CHECKIN_MENOS_1_DIA = pm.globals.get(\"DATA_CHECKIN_MENOS_1_DIA\");\r",
+							"let DATA_CHECKIN_MAIS_1_DIA = pm.globals.get(\"DATA_CHECKIN_MAIS_1_DIA\");\r",
+							"pm.test(`BRCI-01:Bookingid ${expectedId} deve estar presente no retorno. Data setada (${DATA_CHECKIN}) ; Data da Reserva (${DATA_CHECKIN}).`, function () {\r",
+							"    pm.expect(isIdFound).to.be.true;\r",
+							"});\r",
+							"// Log adicional (opcional)\r",
+							"if (isIdFound) {\r",
+							"    console.log(`O bookingid ${expectedId} foi encontrado no retorno.`);\r",
+							"} else {\r",
+							"    console.error(`O bookingid ${expectedId} não foi encontrado no retorno.`);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Contagem Total registros //\r",
+							"// Parse o response JSON\r",
+							"//const response = pm.response.json();\r",
+							"// Verifique se a resposta é um array\r",
+							"if (Array.isArray(response)) {\r",
+							"    // Conta o número de registros no array\r",
+							"    const totalRegistros = response.length;\r",
+							"// Log para visualização\r",
+							"    console.log(`Número total de registros retornados: ${totalRegistros}`);\r",
+							"} else {\r",
+							"    console.error(\"A resposta não é um array.\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking?checkin={{DATA_CHECKIN}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "checkin",
+							"value": "{{DATA_CHECKIN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.3.2.b Buscar reservas por data MENOS 1 DIA do check-in - GetBookingIds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							" \r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da\r",
+							"//Define o schema\r",
+							"const schema = {\r",
+							"    type: \"array\",\r",
+							"    items: {\r",
+							"        type: \"object\",\r",
+							"        properties: {\r",
+							"            bookingid: {\r",
+							"                type: \"integer\"\r",
+							"            }\r",
+							"        },\r",
+							"        required: [\"bookingid\"]\r",
+							"    }\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Vefificar se o ID_RESERVA é exibida na resposta (Deve exibir)\r",
+							"// Obtenha o valor da variável global\r",
+							"const expectedId = parseInt(pm.globals.get(\"ID_RESERVA\"), 10); // Converte para número\r",
+							"// Verifique se o ID está presente\r",
+							"const isIdFound = response.some(item => item.bookingid === expectedId);\r",
+							"// Teste para verificar a presença do ID\r",
+							"let DATA_CHECKIN = pm.globals.get(\"DATA_CHECKIN\");\r",
+							"let DATA_CHECKIN_MENOS_1_DIA = pm.globals.get(\"DATA_CHECKIN_MENOS_1_DIA\");\r",
+							"let DATA_CHECKIN_MAIS_1_DIA = pm.globals.get(\"DATA_CHECKIN_MAIS_1_DIA\");\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(`Bookingid ${expectedId} deve estar presente no retorno. Data setada (${DATA_CHECKIN_MENOS_1_DIA}) ; Data da Reserva (${DATA_CHECKIN}).`, function () {\r",
+							"    pm.expect(isIdFound).to.be.true;\r",
+							"});\r",
+							"// Log adicional (opcional)\r",
+							"if (isIdFound) {\r",
+							"    console.log(`O bookingid ${expectedId} foi encontrado no retorno.`);\r",
+							"} else {\r",
+							"    console.error(`O bookingid ${expectedId} não foi encontrado no retorno.`);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Contagem Total registros //\r",
+							"// Parse o response JSON\r",
+							"//const response = pm.response.json();\r",
+							"// Verifique se a resposta é um array\r",
+							"if (Array.isArray(response)) {\r",
+							"    // Conta o número de registros no array\r",
+							"    const totalRegistros = response.length;\r",
+							"// Log para visualização\r",
+							"    console.log(`Número total de registros retornados: ${totalRegistros}`);\r",
+							"} else {\r",
+							"    console.error(\"A resposta não é um array.\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking?checkin={{DATA_CHECKIN_MENOS_1_DIA}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "checkin",
+							"value": "{{DATA_CHECKIN_MENOS_1_DIA}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.3.2.c Buscar reservas por data MAIS 1 DIA do check-in - GetBookingIds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da\r",
+							"//Define o schema\r",
+							"const schema = {\r",
+							"    type: \"array\",\r",
+							"    items: {\r",
+							"        type: \"object\",\r",
+							"        properties: {\r",
+							"            bookingid: {\r",
+							"                type: \"integer\"\r",
+							"            }\r",
+							"        },\r",
+							"        required: [\"bookingid\"]\r",
+							"    }\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Vefificar se o ID_RESERVA é exibida na resposta (Deve exibir)\r",
+							"// Obtenha o valor da variável global\r",
+							"const expectedId = parseInt(pm.globals.get(\"ID_RESERVA\"), 10); // Converte para número\r",
+							"// Verifique se o ID está presente\r",
+							"let DATA_CHECKIN = pm.globals.get(\"DATA_CHECKIN\");\r",
+							"let DATA_CHECKIN_MENOS_1_DIA = pm.globals.get(\"DATA_CHECKIN_MENOS_1_DIA\");\r",
+							"let DATA_CHECKIN_MAIS_1_DIA = pm.globals.get(\"DATA_CHECKIN_MAIS_1_DIA\");\r",
+							"const isIdFound = response.some(item => item.bookingid === expectedId);\r",
+							"// Teste para verificar a presença do ID\r",
+							"pm.test(`Bookingid ${expectedId} NÃO deve estar presente no retorno. Data setada (${DATA_CHECKIN_MAIS_1_DIA}) ; Data da Reserva (${DATA_CHECKIN}).`, function () {\r",
+							"    //pm.expect(isIdFound).to.be.true;\r",
+							"    pm.expect(isIdFound).to.be.false;\r",
+							"});\r",
+							"// Log adicional (opcional)\r",
+							"if (isIdFound) {\r",
+							"    console.log(`O bookingid ${expectedId} foi encontrado no retorno.`);\r",
+							"} else {\r",
+							"    console.error(`O bookingid ${expectedId} não foi encontrado no retorno.`);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Contagem Total registros //\r",
+							"// Parse o response JSON\r",
+							"//const response = pm.response.json();\r",
+							"// Verifique se a resposta é um array\r",
+							"if (Array.isArray(response)) {\r",
+							"    // Conta o número de registros no array\r",
+							"    const totalRegistros = response.length;\r",
+							"// Log para visualização\r",
+							"    console.log(`Número total de registros retornados: ${totalRegistros}`);\r",
+							"} else {\r",
+							"    console.error(\"A resposta não é um array.\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking?checkin={{DATA_CHECKIN_MAIS_1_DIA}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "checkin",
+							"value": "{{DATA_CHECKIN_MAIS_1_DIA}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.3.2.d Buscar reservas por data do check-in INválidas- GetBookingIds NOK-BRCI-07-08",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"BRCI-08:Verificar o código de resposta se é diferente de 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.not.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da\r",
+							"//Define o schema\r",
+							"const schema = {\r",
+							"    type: \"array\",\r",
+							"    items: {\r",
+							"        type: \"object\",\r",
+							"        properties: {\r",
+							"            bookingid: {\r",
+							"                type: \"integer\"\r",
+							"            }\r",
+							"        },\r",
+							"        required: [\"bookingid\"]\r",
+							"    }\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Vefificar se o ID_RESERVA é exibida na resposta (Deve exibir)\r",
+							"// Obtenha o valor da variável global\r",
+							"const expectedId = parseInt(pm.globals.get(\"ID_RESERVA\"), 10); // Converte para número\r",
+							"// Verifique se o ID está presente\r",
+							"const isIdFound = response.some(item => item.bookingid === expectedId);\r",
+							"// Teste para verificar a presença do ID\r",
+							"pm.test(`BRCI-07:O bookingid ${expectedId} NÃO deve estar presente no retorno`, function () {\r",
+							"    //pm.expect(isIdFound).to.be.true;\r",
+							"    pm.expect(isIdFound).to.be.false;\r",
+							"});\r",
+							"// Log adicional (opcional)\r",
+							"if (isIdFound) {\r",
+							"    console.log(`O bookingid ${expectedId} foi encontrado no retorno.`);\r",
+							"} else {\r",
+							"    console.error(`O bookingid ${expectedId} não foi encontrado no retorno.`);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Contagem Total registros //\r",
+							"// Parse o response JSON\r",
+							"//const response = pm.response.json();\r",
+							"// Verifique se a resposta é um array\r",
+							"if (Array.isArray(response)) {\r",
+							"    // Conta o número de registros no array\r",
+							"    const totalRegistros = response.length;\r",
+							"// Log para visualização\r",
+							"    console.log(`Número total de registros retornados: ${totalRegistros}`);\r",
+							"} else {\r",
+							"    console.error(\"A resposta não é um array.\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking?checkin=1900-02-31",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "checkin",
+							"value": "1900-02-31"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.3.3 Buscar reservas por data de check-out - GetBookingIds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"BRCO-03:Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"BRCO-02:Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da\r",
+							"//Define o schema\r",
+							"const schema = {\r",
+							"    type: \"array\",\r",
+							"    items: {\r",
+							"        type: \"object\",\r",
+							"        properties: {\r",
+							"            bookingid: {\r",
+							"                type: \"integer\"\r",
+							"            }\r",
+							"        },\r",
+							"        required: [\"bookingid\"]\r",
+							"    }\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"BRCO-04:Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Vefificar se o ID_RESERVA é exibida na resposta (Deve exibir)\r",
+							"// Obtenha o valor da variável global\r",
+							"const expectedId = parseInt(pm.globals.get(\"ID_RESERVA\"), 10); // Converte para número\r",
+							"// Verifique se o ID está presente\r",
+							"const isIdFound = response.some(item => item.bookingid === expectedId);\r",
+							"// Teste para verificar a presença do ID\r",
+							"let DATA_CHECKOUT = pm.globals.get(\"DATA_CHECKOUT\");\r",
+							"pm.test(`BRCO-01:O bookingid ${expectedId} deve estar presente no retorno. Data setada (${DATA_CHECKOUT}) ; Data da Reserva (${DATA_CHECKOUT})`, function () {\r",
+							"    pm.expect(isIdFound).to.be.true;\r",
+							"});\r",
+							"// Log adicional (opcional)\r",
+							"if (isIdFound) {\r",
+							"    console.log(`O bookingid ${expectedId} foi encontrado no retorno.`);\r",
+							"} else {\r",
+							"    console.error(`O bookingid ${expectedId} não foi encontrado no retorno.`);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Contagem Total registros //\r",
+							"// Parse o response JSON\r",
+							"//const response = pm.response.json();\r",
+							"// Verifique se a resposta é um array\r",
+							"if (Array.isArray(response)) {\r",
+							"    // Conta o número de registros no array\r",
+							"    const totalRegistros = response.length;\r",
+							"// Log para visualização\r",
+							"    console.log(`Número total de registros retornados: ${totalRegistros}`);\r",
+							"} else {\r",
+							"    console.error(\"A resposta não é um array.\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking?checkout={{DATA_CHECKOUT}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "checkout",
+							"value": "{{DATA_CHECKOUT}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.3.3.b Buscar reservas por data MENOS 1 DIA do check-out - GetBookingIds - NOK-BRCO-05",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da\r",
+							"//Define o schema\r",
+							"const schema = {\r",
+							"    type: \"array\",\r",
+							"    items: {\r",
+							"        type: \"object\",\r",
+							"        properties: {\r",
+							"            bookingid: {\r",
+							"                type: \"integer\"\r",
+							"            }\r",
+							"        },\r",
+							"        required: [\"bookingid\"]\r",
+							"    }\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Vefificar se o ID_RESERVA é exibida na resposta (Deve exibir)\r",
+							"// Obtenha o valor da variável global\r",
+							"const expectedId = parseInt(pm.globals.get(\"ID_RESERVA\"), 10); // Converte para número\r",
+							"// Verifique se o ID está presente\r",
+							"const isIdFound = response.some(item => item.bookingid === expectedId);\r",
+							"// Teste para verificar a presença do ID\r",
+							"let DATA_CHECKOUT = pm.globals.get(\"DATA_CHECKOUT\");\r",
+							"let DATA_CHECKOUT_MENOS_1_DIA = pm.globals.get(\"DATA_CHECKOUT_MENOS_1_DIA\");\r",
+							"\r",
+							"pm.test(`BRCO-05:O bookingid ${expectedId} deve estar presente no retorno. Data setada (${DATA_CHECKOUT_MENOS_1_DIA}) ; Data da Reserva (${DATA_CHECKOUT}).`, function () {\r",
+							"    pm.expect(isIdFound).to.be.true;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Contagem Total registros //\r",
+							"// Parse o response JSON\r",
+							"//const response = pm.response.json();\r",
+							"// Verifique se a resposta é um array\r",
+							"if (Array.isArray(response)) {\r",
+							"    // Conta o número de registros no array\r",
+							"    const totalRegistros = response.length;\r",
+							"// Log para visualização\r",
+							"    console.log(`Número total de registros retornados: ${totalRegistros}`);\r",
+							"} else {\r",
+							"    console.error(\"A resposta não é um array.\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking?checkout={{DATA_CHECKOUT_MENOS_1_DIA}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "checkout",
+							"value": "{{DATA_CHECKOUT_MENOS_1_DIA}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.3.3.c Buscar reservas por data MAIS 1 DIA do check-out - GetBookingIds - NOK-BRCO-06",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"Verificar o código de resposta se é igual a 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o schema da\r",
+							"//Define o schema\r",
+							"const schema = {\r",
+							"    type: \"array\",\r",
+							"    items: {\r",
+							"        type: \"object\",\r",
+							"        properties: {\r",
+							"            bookingid: {\r",
+							"                type: \"integer\"\r",
+							"            }\r",
+							"        },\r",
+							"        required: [\"bookingid\"]\r",
+							"    }\r",
+							"};\r",
+							"// Parse o response\r",
+							"const response = pm.response.json();\r",
+							"// Valida o schema usando Ajv\r",
+							"const Ajv = require('ajv');\r",
+							"const ajv = new Ajv();\r",
+							"const validate = ajv.compile(schema);\r",
+							"const valid = validate(response);\r",
+							"// Teste de validação do schema\r",
+							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"    pm.expect(valid).to.be.true;\r",
+							"});\r",
+							"// Log em caso de falha\r",
+							"if (!valid) {\r",
+							"    console.error(\"Erro de validação do schema:\", validate.errors);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Vefificar se o ID_RESERVA é exibida na resposta (Deve exibir)\r",
+							"// Obtenha o valor da variável global\r",
+							"const expectedId = parseInt(pm.globals.get(\"ID_RESERVA\"), 10); // Converte para número\r",
+							"// Verifique se o ID está presente\r",
+							"const isIdFound = response.some(item => item.bookingid === expectedId);\r",
+							"// Teste para verificar a presença do ID\r",
+							"let DATA_CHECKOUT = pm.globals.get(\"DATA_CHECKOUT\");\r",
+							"let DATA_CHECKOUT_MAIS_1_DIA = pm.globals.get(\"DATA_CHECKOUT_MAIS_1_DIA\");\r",
+							"\r",
+							"pm.test(`O bookingid ${expectedId} NÃO deve estar presente no retorno. Data setada (${DATA_CHECKOUT_MAIS_1_DIA}) ; Data da Reserva (${DATA_CHECKOUT}).`, function () {\r",
+							"    pm.expect(isIdFound).to.be.false;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Log adicional (opcional)\r",
+							"if (isIdFound) {\r",
+							"    console.log(`O bookingid ${expectedId} foi encontrado no retorno.`);\r",
+							"} else {\r",
+							"    console.error(`O bookingid ${expectedId} não foi encontrado no retorno.`);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Contagem Total registros //\r",
+							"// Parse o response JSON\r",
+							"//const response = pm.response.json();\r",
+							"// Verifique se a resposta é um array\r",
+							"if (Array.isArray(response)) {\r",
+							"    // Conta o número de registros no array\r",
+							"    const totalRegistros = response.length;\r",
+							"// Log para visualização\r",
+							"    console.log(`Número total de registros retornados: ${totalRegistros}`);\r",
+							"} else {\r",
+							"    console.error(\"A resposta não é um array.\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking?checkout={{DATA_CHECKOUT_MAIS_1_DIA}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "checkout",
+							"value": "{{DATA_CHECKOUT_MAIS_1_DIA}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.2.5.b Deletar uma reserva - DeleteBooking - NOK7,8",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"DR-06:Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota\r",
+							"pm.test(\"DR-07:Verificar o código de resposta se é igual a 404\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(404);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//Verificar conteúdo da resposta\r",
+							"const responseText = pm.response.text();\r",
+							"// Testar se o texto retornado é mesmo \"Method Not Allowed\"\r",
+							"pm.test(\"DR-08:Verificar se o texto retornado é diferente de 'Method Not Allowed'.(Se bem que na espec. cita 'Ok')\", function () {\r",
+							"    pm.expect(responseText).to.not.equal(\"Method Not Allowed\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\" : \"Meu Nome Modificado\",\r\n    \"lastname\" : \"Sobre Nome\",\r\n    \"totalprice\" : 111,\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"2025-01-01\",\r\n        \"checkout\" : \"2026-01-01\"\r\n    },\r\n    \"additionalneeds\" : \"Breakfast\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking/99887766",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking",
+						"99887766"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2.2.5 Deletar uma reserva - DeleteBooking - NOk3,4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Verificar o tempo de exibição da respota\r",
+							"pm.test(\"DR-02:Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar o Status Code da respota Na espec. cita que tem de retornar Status Code 200 e depois 201. Considero um erro na espec.\r",
+							"pm.test(\"DR-03:Verificar se código de resposta é 202 ou 204\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([202, 204]);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verificar conteúdo da resposta\r",
+							"const responseText = pm.response.text();\r",
+							"// Testar se o texto retornado faz mensção de reg deletado. Apesar de na espec. citar que tem de retornar \"Created\" e depois \"Campo\" \"OK\"\r",
+							"pm.test(\"DR-04:Verificar se o texto retornado faz menção a deletar registro.\", function () {\r",
+							"    pm.expect(responseText).to.not.equal(\"Created\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Verifica se o registro foi deletado realmente fazendo uma consulta\r",
+							"// Configura o ID da reserva\r",
+							"const idReserva = pm.environment.get(\"ID_RESERVA\");\r",
+							"// Realiza uma nova requisição GET para confirmar\r",
+							"const url = pm.environment.get(\"Base_URL\") + \"/booking/\" + idReserva;\r",
+							"pm.sendRequest({\r",
+							"    url: url,\r",
+							"    method: \"GET\",\r",
+							"}, function (err, response) {\r",
+							"    if (err) {\r",
+							"        console.error(\"Erro ao fazer requisição GET:\", err);\r",
+							"    } else {\r",
+							"        // Valida que o código de resposta da GET é 404\r",
+							"        pm.test(\"DR-01:Verificar status Code da busca pelo ID solicitado deletar. Se for 404 Foi deletado.\", function () {\r",
+							"            pm.expect(response.code).to.equal(404); // Registro não encontrado\r",
+							"        });\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\" : \"Meu Nome Modificado\",\r\n    \"lastname\" : \"Sobre Nome\",\r\n    \"totalprice\" : 111,\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"2025-01-01\",\r\n        \"checkout\" : \"2026-01-01\"\r\n    },\r\n    \"additionalneeds\" : \"Breakfast\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_URL}}/booking/{{ID_RESERVA}}",
+					"host": [
+						"{{Base_URL}}"
+					],
+					"path": [
+						"booking",
+						"{{ID_RESERVA}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
