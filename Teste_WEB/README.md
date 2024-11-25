@@ -21,8 +21,8 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 2. `locked_out_user` - Usuário com acesso bloqueado.
 3. `problem_user` - Usuário com algum problema.
 4. `performance_glitch_user` - Usuário que simula problema de performance no Sistema.
-5. 'error_user' - Usuário com algum problema.
-6. 'visual_user' - Usuário que gera problema visual no Sistema.
+5. `error_user` - Usuário com algum problema.
+6. `visual_user` - Usuário que gera problema visual no Sistema.
 
 ## 5. Casos de Testes
 
