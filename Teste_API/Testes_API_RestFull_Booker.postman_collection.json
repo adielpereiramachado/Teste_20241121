@@ -804,7 +804,7 @@
 			"response": []
 		},
 		{
-			"name": "2.2.2.1.b Criar uma Nova Reserva passando chekin maior checou- CreateBooking - CNR-02-05",
+			"name": "2.2.2.1.b Criar uma Nova Reserva passando chekin maior checkout- CreateBooking - CNR-05_02_05",
 			"event": [
 				{
 					"listen": "test",
@@ -818,7 +818,7 @@
 							"\r",
 							"\r",
 							"//Verificar o Status Code da respota\r",
-							"pm.test(\"CNR-02:Verificar o código de resposta se é igual a 500\", function () {\r",
+							"pm.test(\"CNR-05_02:Verificar o código de resposta se é igual a 500\", function () {\r",
 							"    pm.expect(pm.response.code).to.equal(500);\r",
 							"});\r",
 							"if (pm.response.code === 500) {\r",
@@ -908,7 +908,7 @@
 							"// Obtém os dados enviados no Body da requisição\r",
 							"const requestBody = JSON.parse(pm.request.body.raw);\r",
 							"// Testa se os campos retornados são iguais aos enviados\r",
-							"pm.test(\"CNR-05:Verificar os dados retornados iguais aos enviados para criação\", function () {\r",
+							"pm.test(\"CNR-05_05:Verificar os dados retornados iguais aos enviados para criação\", function () {\r",
 							"    pm.expect(response.booking.firstname).not.to.eql(requestBody.firstname);\r",
 							"    pm.expect(response.booking.lastname).not.to.eql(requestBody.lastname);\r",
 							"    pm.expect(response.booking.totalprice).not.to.eql(requestBody.totalprice);\r",
@@ -957,21 +957,21 @@
 			"response": []
 		},
 		{
-			"name": "2.2.2.1.c Criar uma Nova Reserva sem data chekin - CreateBooking - CNR-07-08-09",
+			"name": "2.2.2.1.c Criar uma Nova Reserva sem data chekin - CreateBooking - CNR-07_02_03_04",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
 							"//Verificar o tempo de exibição da respota\r",
-							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"pm.test(\"CNR-07_01:Verificar tempo máximo de menor que 2 seg\", function () {\r",
 							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
 							"});\r",
 							"\r",
 							"\r",
 							"\r",
 							"//Verificar o Status Code da respota\r",
-							"pm.test(\"CNR-08:Verificar o código de resposta se é igual a 500\", function () {\r",
+							"pm.test(\"CNR-07_02:Verificar o código de resposta se é igual a 500\", function () {\r",
 							"    pm.expect(pm.response.code).to.equal(500);\r",
 							"});\r",
 							"if (pm.response.code === 500) {\r",
@@ -983,7 +983,7 @@
 							"//Verificar conteúdo da resposta\r",
 							"const responseText = pm.response.text();\r",
 							"// Testar se o retorno é []\r",
-							"pm.test(\"CNR-09:Verificar se o conteúdo retornado é []\", function () {\r",
+							"pm.test(\"CNR-07_03:Verificar se o conteúdo retornado é []\", function () {\r",
 							"    pm.expect(responseText).to.equal(\"[]\");\r",
 							"});\r",
 							"\r",
@@ -994,7 +994,7 @@
 							"// Obtém os dados enviados no Body da requisição\r",
 							"const requestBody = JSON.parse(pm.request.body.raw);\r",
 							"// Testa se os campos retornados são iguais aos enviados\r",
-							"pm.test(\"CNR-07:Verificar os dados retornados iguais aos enviados para criação\", function () {\r",
+							"pm.test(\"CNR-07_04:Verificar os dados retornados iguais aos enviados para criação\", function () {\r",
 							"    pm.expect(response.booking.firstname).not.to.eql(requestBody.firstname);\r",
 							"    pm.expect(response.booking.lastname).not.to.eql(requestBody.lastname);\r",
 							"    pm.expect(response.booking.totalprice).not.to.eql(requestBody.totalprice);\r",
@@ -1940,21 +1940,21 @@
 			"response": []
 		},
 		{
-			"name": "2.2.3.2.d Buscar reservas por data do check-in INválidas- GetBookingIds BRCI-07-08",
+			"name": "2.2.3.2.d Buscar reservas por data do check-in INválidas- GetBookingIds - BRCI-07_02_04",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
 							"//Verificar o tempo de exibição da respota\r",
-							"pm.test(\"Verificar tempo máximo de menor que 2 seg\", function () {\r",
+							"pm.test(\"BRCI-07_01:Verificar tempo máximo de menor que 2 seg\", function () {\r",
 							"    pm.expect(pm.response.responseTime).to.be.below(2000); \r",
 							"});\r",
 							"\r",
 							"\r",
 							"\r",
 							"//Verificar o Status Code da respota\r",
-							"pm.test(\"BRCI-08:Verificar o código de resposta se é diferente de 200\", function () {\r",
+							"pm.test(\"BRCI-07_02:Verificar o código de resposta se é diferente de 200\", function () {\r",
 							"    pm.expect(pm.response.code).to.not.equal(200);\r",
 							"});\r",
 							"\r",
@@ -1982,7 +1982,7 @@
 							"const validate = ajv.compile(schema);\r",
 							"const valid = validate(response);\r",
 							"// Teste de validação do schema\r",
-							"pm.test(\"Verificar o schema de retorno\", function () {\r",
+							"pm.test(\"BRCI-07_03:Verificar o schema de retorno\", function () {\r",
 							"    pm.expect(valid).to.be.true;\r",
 							"});\r",
 							"// Log em caso de falha\r",
@@ -1998,7 +1998,7 @@
 							"// Verifique se o ID está presente\r",
 							"const isIdFound = response.some(item => item.bookingid === expectedId);\r",
 							"// Teste para verificar a presença do ID\r",
-							"pm.test(`BRCI-07:O bookingid ${expectedId} NÃO deve estar presente no retorno`, function () {\r",
+							"pm.test(`BRCI-07_04:O bookingid ${expectedId} NÃO deve estar presente no retorno`, function () {\r",
 							"    //pm.expect(isIdFound).to.be.true;\r",
 							"    pm.expect(isIdFound).to.be.false;\r",
 							"});\r",
