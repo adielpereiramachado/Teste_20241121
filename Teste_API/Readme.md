@@ -2,7 +2,7 @@
 
 ***[RESTFULL BOOKER](https://restful-booker.herokuapp.com/)***
 
-*versão do documento: 2.2*
+*versão do documento: 2.3*
 
 ## 1. Objetivo:
 Este artefato descreve o plano de teste contra o site https://restful-booker.herokuapp.com/. 
@@ -14,7 +14,11 @@ Contido neste trabalho, os principais fluxos e cenários de teste para avaliaç�
 - URL: https://restful-booker.herokuapp.com/
 - Ambiente: Produção
 - Versão: Não identificada
-
+- Funcionalidades:
+	- 2.2.1 Autenticação
+	- 2.2.2 Gestão de reservas
+	- 2.2.3 Filtros e buscas
+ 
 
 ## 3. Considerações iniciais:
 - Lendo o Site (https://restful-booker.herokuapp.com), é descrito (em tradução) que a API é 'carregada' de bugs. No entanto, segundo minha análise (posso estar errado) a própria documentação da API (https://restful-booker.herokuapp.com/apidoc/index.html) contém alguns bugs. Dessa forma, no artefato com os Casos de Teste, descrevi no Resultado Esperado o que considerei correto esperar da API e não somente a descrição literal encontrada no site, em alguns casos cheguei a descrever por conta próprio por não encontrar um Resultado Esperado na documentação (espec.).
@@ -246,9 +250,8 @@ Deixei os artefatos para reproduzir os testes na pasta .\Request.  ([link para R
 
 
 ## 7. Relatório Newman:
-Tentando facilitar a visualização da execução da Colletion com todas as request que criei, executei o Newman htmlextra conforme consta na pasta .\Relatorios\Testes_API_RestFull_Booker-2024-11-25-02-26-26-605-0.html ([link para relatório Newman](https://github.com/adielpereiramachado/Teste_20241121/tree/main/Teste_API/Relatorios))
+Tentando facilitar a visualização da execução da Colletion com todas as request que criei, executei o Newman htmlextra conforme consta na pasta .\Relatorios\Testes_API_RestFull_Booker-2024-11-25-02-26-26-605-0.html ([link para relatório Newman](https://github.com/adielpereiramachado/Teste_20241121/tree/main/Teste_API/Relatorios)) 
+![linkrel](https://github.com/adielpereiramachado/Teste_20241121/blob/main/Teste_API/Relatorios/Postman_Rel_Newman.png)
 
 
-## 8. Considerações finais:
-- Gostei do desafio, acredito que por falta de tempo não consegui implementar tudo que gostaria e com mais Qualidade.
 
