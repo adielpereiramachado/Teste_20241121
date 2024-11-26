@@ -1,7 +1,7 @@
 # Plano de Teste - WEB (UI)
 ***[E-COMMERCE SAUCE DEMO](https://www.saucedemo.com/)***
 
-*versão do documento: 1.0*
+*versão do documento: 1.1*
 
 ## 1. Objetivo:
 Este artefato descreve o plano de teste contra o site https://www.saucedemo.com. 
@@ -13,8 +13,10 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 - Site: https://www.saucedemo.com
 - Ambiente: Produção
 - Versão: Não identificada
-- 
+
 ## 3. Considerações iniciais:
+- Fiz videos para os testes onde estão disponíveis na pasta  [.\Envidencias](https://github.com/adielpereiramachado/Teste_20241121/tree/main/Teste_WEB/Evidencias)
+- Para classificação dos itens encontrados, adotei uma escla simples variando entre: Baixo, Médio e Alto.
 
 ## 4. Credênciais de Identificação dos Usuários para acesso ao portal utilizados nos testes:
 1. `standard_user` - Usuário normal para uso.
@@ -222,15 +224,13 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 | R7-01 | Verificar comportamento do Sistema quando alterar ID de produto pela URL<br>1. Entrar na página de exibição dos produtos.<br>2. Clicar na foto de um produto.<br>3. Alterar o id do produto na URL para um inexistente e teclar "Enter".<br>4. Click no botão "Add to cart".<br>5. Clicar no ícone do carrinho de compras localizado no canto superior direito da página. | Username "standard_user" / Password: "secret_sauce" | Fazer alguma validação e não deixar adicionar ao carrinho um produto inexistente. | Após executar o passo 5, o Sistema tenta trocar de página mas não exibe mais nada. Saindo e retornando ainda consta o 'produto' no carrinho.<br>Tendo em vista a característica de não retirar o produto do carrinho ao fazer "Logout", fica impossível finalizar novas compras. Para sair dessa situação, deve-se entrar novamente no Sistema, selecionar um produto e alterar para o mesmo ID do produto inexistente, dessa forma o sistema vai exibir a foto de um cachorro como da primeira vez e basta clicar no botão 'Remove'. | Após executar o passo 3, o Sistema deveria confirmar se existe mesmo o ID passado e só exibir a tela com novas informações caso existisse o ID alterado e passo na URL passado.<br>Ou alguma ideia melhor que essa, o que não pode é continuar assim. | R7-01.mp4 | Alta | Alto |
 | R7-02 | Verificar comportamento do Sistema quando alterado nome do Usuário em configurações de Cookies<br>Verificar comportamento quando alterado id do produto<br>1. Entrar na página de exibição dos produtos.<br>2. Abrir opção do desenvolvedor no Browser.<br>3. Ir na opção "Application" > "Storage" > Cookies campo "Value".<br>4. Trocar de standard_user para visual_user. | Username "standard_user" / Password: "secret_sauce" | Não deixar vulnerável a troca do Usuário pelo Cookies | Após executar o passo 4 e voltando para a página do sistema, ele reage com as características do user inserido, neste caso apresentando problemas visuais. | Sistema não deveria permitir uma "troca" de usuário sem as devidas validações.<br>**(Melhoria)** Poderia ter validação de Captcha e/ou autenticação de 2 fatores para maior segurança. | R7-02.mp4 | Alta | Alto |
 
-## Resumo Executivo de Melhorias
-
-### Principais Pontos de Melhoria:
-- Implementar função de "Loading" durante processos lentos
-- Melhorar usabilidade das mensagens de erro
-- Adicionar opções de segurança como autenticação de dois fatores
-- Melhorar tempo de resposta do sistema
-- Validar entrada de dados e IDs de produtos
-- Aprimorar visualização do menu e navegação
+## 5.8.1 Resumo dos principais Pontos de Melhoria:
+. Implementar função de "Loading" durante processos<br>
+. Melhorar usabilidade das mensagens de erro<br>
+. Adicionar opções de segurança como autenticação de dois fatores<br>
+. Investigar e melhorar tempo de resposta do sistema<br>
+. Validar entrada de dados e IDs de produtos<br>
+. Aprimorar visualização do menu e navegação
 
 
 
@@ -270,12 +270,11 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 | LU-33 | 6. Clicando no botão "Finish", vai para tela "Complete!" | Idem anterior | Nessa tela deve mante os 3 componentes:  1. Menu,  2. Título,  3. Carrinho que nesse momento o contador deve ser retirado (zerado). | NOK - Carrinho continua desalihado, mas sem o contador indicando que corretamente está vazio. LU-33_visual-user.png | - | LU-33_visual-user.png | Baixa | Médio |
 | LU-35 | 7. Clicar no botão "Back Home". | Idem anterior | 1. O Sistema deve retornar para a página principal exibindo os produtos. 2. Mudar a URL para: https://www.saucedemo.com/inventory.html | NOK - Exibe os mesmos problemas já relatados em LU-02 e LU-05 | - | LU-02 e LU-05 | Baixa | Médio |
 
-#### 5.9.1 Observações Gerais:
-- Principais áreas com defeitos:
-  1. Login
-  2. Ordenação de produtos
-  3. Fluxo de compra
-  4. Remoção de produtos no carrinho
+#### 5.9.1 Principais áreas com defeitos:
+. Login<br>
+. Ordenação de produtos<br>
+. Fluxo de compra<br>
+. Remoção de produtos no carrinho
 
 ### 5.10 Item: "1.3.1.5 Análise de riscos da aplicação"
 
@@ -288,7 +287,7 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 
 ### 5.11 Item: "1.3.2.1 Testes de responsividade" e "1.3.2.2 Testes de acessibilidade"
 Não consegui avançar nesse item apesar de acreditar muito em seu valor e perceber que o Site usado, necessita realmente de algumas melhorias nestes quesitos.<br>
-No entanto, executei uma avaliação com "PageSpeed Insights" do google, onde deixo o relatório disponível na pasta .\Relatorios.
+No entanto, executei uma avaliação com "PageSpeed Insights" do google, onde deixo o relatório disponível na pasta  [.\Relatorios](https://github.com/adielpereiramachado/Teste_20241121/tree/main/Teste_WEB/Relatorios)
 
 
 
@@ -296,11 +295,24 @@ No entanto, executei uma avaliação com "PageSpeed Insights" do google, onde de
 Quando o assunto é automatização, acredito que o escopo do que se deve ou não ser automatizado, passa por alguns critérios.<br> Abaixo descrevo alguns começando pelos de maior relavância:<br>
 1.Fluxos onde se existir defeito, o impacto para o Negócio é grande (geralmente passa por assuntos de perda financeira, mas não só);<br>2. Fluxos onde se executa muitas vezes e/ou são muito longos e/ou demorados;<br>3. Fluxos onde a parte do Sistema demanda mais complexidade no código;<br>4.Fluxos onde sejá fácil mensuração de tempo/velocidade/duração para constante comparação (acada execução), assim possibilitando identificar o quanto antes algum problema quanto a performance.
 
+Aqui deixo um exemplo prático bem simples, para ter uma noção do teste com Robotframework utilizando a Library Browser do Playwright (venho estudando recentemente essa combinação). O conteúdo está na pasta [.\Robotframework](https://github.com/adielpereiramachado/Teste_20241121/tree/main/Teste_WEB/Robotframework)
 
+Na mesma pasta tem um video que gravei executando o Fluxo Completo de Compra e tem também um screenshot do relatório gerado pelo Robot.
 
-Aqui deixo (pasta .\Robotframework) um exemplo prático bem simples, para ter uma noção do teste com Robotframework utilizando a Library Browser do Playwright (venho estudando recentemente essa combinação).
+![linkrel](https://github.com/adielpereiramachado/Teste_20241121/blob/main/Teste_WEB/Robotframework/Robotframework_Rel_Exec.png)
 
+Para executar o script do Robotframework tem que ter instalado:<br>
+1. Python
+2. Robotframework
+3. Node
+4. Library robotframework-browser, executar o comando: pip install robotframework-browser
+5. Executar o comando: rfbrowser init
+6. Executar o comando: npm install @playwright/test
+7. Executar o comando: npx playwright install-deps
 
+Agora na mesma pasta que estiver os script executar: robot -d Logs .\Teste_SauceDemo.robot<br>
+Esse comando executa com as variaveis definidas como estão no código, que no caso passa para logar no sistema o Usuário "standard_user".<br>
+Caso queira executar com o Usuário "performance_glitch_user" para simular um defeito por demorar mais que 3 seg para logar (configurei para aguardar no máximo 3 seg entre as interações), então execute o comando: robot -d Logs -v USUARIO:performance_glitch_user .\Teste_SauceDemo.robot
 
 
 
