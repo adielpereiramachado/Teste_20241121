@@ -74,16 +74,14 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 | CT-02.01_OFP-04 | Username "error_user" / Password: "secret_sauce" | Sistema não realiza ordenão de nenhum tipo. | NOK | Exibe aviso de problema e que já foi relatado | CT-02.01_OFP-04.mp4 | Média | Média |
 | CT-02.01_OFP-05 | Username "visual_user" / Password: "secret_sauce" | Sistema exibe novos valores dos produtos e não ordena corretamente que é o foco do teste. | NOK | Foi identificado p/ esse Usuário que o valor dos prod são alterados e a cada solicitação de ordenação os valor mudam. | CT-02.01_OFP-05.mp4 | Alta | Alto |
 
-### 5.3 Item: "1.2.3 Fluxo completo de compra (do carrinho até finalização)"
+### 5.3 Item: "1.2.3 Fluxo completo de compra (do carrinho até finalização)" 
+#### 5.3.1 Selecionando e tendo pelo menos um produto no Carrinho
 
 **Pré-Condição:** Ter acesso ao Sistema.
-
 
 | Caso de Teste | Descrição do teste | Resultado esperado |
 |--------------|-------------------|-------------------|
 | CT-03 | Verificar funcionamento do fluxo completo de compra - Selecionando um produto pela tela principal:<br>1. Entrar na página de exibição dos produtos.<br>2. Adicionar um produto ao carrinho clicando no botão "Add to cart" correspondente ao produto desejado.<br>3. Clicar no ícone do carrinho de compras localizado no canto superior direito da página.<br>4. Na página do carrinho, verificar nome do produto, a descrição dos detalhes do produto e preço.<br>5. Clicar no botão "Checkout".<br>6. Preencher as informações de checkout na página "First Name", "Last Name" e "Zip/Postal Code" e clicar no botão "Continue".<br>7. Na página de resumo, verificar os detalhes do pedido, incluindo quantidade, o nome, descrição e preço do produto, bem como o total da compra.<br>8. Clicar no botão "Finish".<br>9. Clicar no botão "Back Home". | 1. Carrinho deve estar vazio.<br>2. Carrinho deve exibir qtde de produto.<br>3/4. Deve exibir detalhe do produto.<br>5. Deve redirecionar para nova página para inserir dados de entrega.<br>6. Os dados deve vir em branco possibilitando insersão nos 3 campos. Todos campos obrigatórios e qdo tentar avançar sem preencher deve exibir msg informativa do campo vazio para devido preenchimento.<br>7. Deve haver consistências do nome, descrição e valor do produto, bem como as totalização do valor.<br>8. O sistema deve ter acatado a ordem de compra dos produtos confirmados exibindo uma mensagem de conclusão da compra "THANK YOU FOR YOUR ORDER" e um botão "Back Home".<br>9. Em clicando em "Back Home" Sistema deve retornar à página principal dos produtos. |
-
-### Execuções de Teste
 
 | ID de Execução | Credencial | Resultado Obtido | Status | Observação | Evidência | Severidade (téc.) | Impacto (p/ Usuários) |
 |---------------|------------|-----------------|--------|------------|-----------|-------------------|----------------------|
@@ -94,35 +92,27 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 | CT-03_FCC-05 | Username "error_user" / Password: "secret_sauce" | Ao inserir valor para "Last Name", nãõ registra insersão de nenhum valor. | NOK | Problema semelhante ao CT-04_FCC_03, mas este não insere o valor no campo First Name. | CT-03_FCC_05.mp4 | Alta | Alto |
 | CT-03_FCC-06 | Username "visual_user" / Password: "secret_sauce" | Apresenta problema de layout significativo ícone do carrinho e botão de "Checkout" deslocado. | NOK | - | CT-03_FCC_06.mp4 | Média | Médio |
 
-## 5.3.2 Cenário de Teste 1.2.3 Fluxo Completo de Compra (sem selecionar produto)
 
-### Pré-Condição: 
-Ter acesso ao Sistema.
+#### 5.3.1 Não selecionando nenhum produto com Carrinho vazio
 
-### Caso de Teste
+**Pré-Condição:** Ter acesso ao Sistema.
 
 | Caso de Teste | Descrição do teste | Resultado esperado |
 |--------------|-------------------|-------------------|
 | CT-03.01 | Verificar funcionamento do fluxo completo de compra - Sem selecionar nenhum produto:<br>1. Entrar na página de exibição dos produtos.<br>2. Certificasse que o carrinho está vazio, se não tive remova os produtos até que fique sem nenhum.<br>3. Clicar no ícone do carrinho de compras localizado no canto superior direito da página.<br>4. Na página do carrinho, observe e certificasse que não exibe produto algum.<br>5. Clicar no botão "Checkout". | 1. Ao  tentar executar o passo 5 click no btn "Checkout" o Sistema deveria validar a situação e não deixar avançar.<br>2. Poderia exibir uma mensagem informando que o carrinho está vazio e bloquear avançar no fluxo. |
 
-### Execuções de Teste
-
 | ID de Execução | Credencial | Resultado Obtido | Status | Observação | Evidência | Severidade (téc.) | Impacto (p/ Usuários) |
 |---------------|------------|-----------------|--------|------------|-----------|-------------------|----------------------|
 | CT-03.01_FCC-01 | Username "standard_user" / Password: "secret_sauce" | O Sistema não impediu de avançar no fluxo da compra mesmo não tendo produto no carrinho | NOK | - | CT-03.01_FCC-01.mp4 | Alta | Alto |
 
-## 5.4 Cenário de Teste 1.2.4 Remoção de Itens do Carrinho
+### 5.4 Item: "1.2.4 Remoção de itens do carrinho"
 
-### Pré-Condição: 
-Ter acesso ao Sistema.
-
-### Caso de Teste
+***Pré-Condição:*** Ter acesso ao Sistema.
 
 | Caso de Teste | Descrição do teste | Resultado esperado |
 |--------------|-------------------|-------------------|
 | CT-04 | Verificar a funcionalidade de remover produtos do Carrinho - pela página principal:<br>1. Entrar na página de exibição dos produtos.<br>2. Adicionar um produto ao carrinho clicando no botão "Add to cart" correspondente ao produto desejado.<br>3. Após o botão mudar o texto de "Add to cart", clicar no botão que agora deve ter o texto "Remove".<br>4. Adicionar um produto ao carrinho novamente.<br>5. Clicar no ícone do Carrinho.<br>6. Clicar no btn "remove". | 1. Quando executado o passo 2, o Sistema deve exibir um contador sobre o ícone do carrinho localizado na parte superior à direita da página, sinalizando que o carrinho tem a quantidade de produto exibido.<br>2. Após execução do passo 3 e 6, o Sistema deve remover o contador sobre o ícone do carrinho, sinalizando que o carrinho está vazio. |
 
-### Execuções de Teste
 
 | ID de Execução | Credencial | Resultado Obtido | Status | Observação | Evidência | Severidade (téc.) | Impacto (p/ Usuários) |
 |---------------|------------|-----------------|--------|------------|-----------|-------------------|----------------------|
@@ -132,13 +122,8 @@ Ter acesso ao Sistema.
 | CT-04_RIC-04 | Username "error_user" / Password: "secret_sauce" | 1. Para o produto "Sauce Labs Backpack" não foi possível remover pela tela principal, nem pela de detalhe do produto, somente clicando em "Remove" dentro do Carrinho.<br>2. Para o "Test.allTehThings() T-Shirt (Red)" não foi possível add no carrinho pela tela principal. | NOK | - | CT-04_RIC-04.mp4 | Alta | Alto |
 | CT-04_RIC-05 | Username "visual_user" / Password: "secret_sauce" | 1. Para o produto "Test.allTehThings() T-Shirt (Red)" o btn "Add to cart" e por conseq. "Remove" são exibidos desalinhados for ado frame com info do produto. | NOK | - | CT-04_RIC-05.mp4 | Alta | Alto |
 
-
-## 5.5 Cenário de Teste 1.2.5 Navegação entre Páginas
-
-### Pré-Condição: 
-Ter acesso ao Sistema.
-
-### Casos de Teste
+### 5.5 Item: "1.2.5 Navegação entre páginas"
+**Pré-Condição:** Ter acesso ao Sistema.
 
 | Caso de Teste | Descrição do teste | Resultado esperado |
 |--------------|-------------------|-------------------|
@@ -152,25 +137,19 @@ Ter acesso ao Sistema.
 | CT-05.08 | 8. Clicar no botão "Back Home" | 23. O Sistema deve retornar para a página principal exibindo os produtos.<br>24. Mudar a URL para: https://www.saucedemo.com/inventory.html |
 | CT-05.09 | 9. Clicar no botão que abre o menu, localizado na parte superior da tela do lado esquerdo e Selecionar a opção "Logout" | 25. O Sistema deve realizar o logout, exibindo novamente a tela de Login.<br>26. Mudar a URL para: https://www.saucedemo.com/ |
 
-### Execuções de Teste
 
 | ID de Execução | Credencial | Resultado Obtido | Status | Observação | Evidência | Severidade (téc.) | Impacto (p/ Usuários) |
 |---------------|------------|-----------------|--------|------------|-----------|-------------------|----------------------|
 | CT-05_NEP-01 | Username "standard_user" / Password: "secret_sauce" | Resultado Obtido igual ao Resultado esperado | OK | (Melhoria) Deixar os itens do menu visiveis ou pelo menos com opção de ocultar/exibir. (Usabilidade)<br>(Melhoria) Exibir em uma parte superior da tela, Caminho completo da aplicação para melhor entendimento onde se está navegando. | CT-05_NEP-01.mp4 | Baixa | Baixo |
 | CT-05_NEP-02 | Username "problem_user" / Password: "secret_sauce" | Todas imagens comprometidas e ao clicar na foto do "Sauce Labs Backpack", na tela de detalhe exibe outro nome e foto do produto e também não é possível avançar pois não aceita add no carrinho. | NOK | - | CT-05_NEP-02.mp4 | Alta | Alto |
 
-## 5.6 Cenário de Teste 1.2.6 Logout
-
-### Pré-Condição: 
-Ter acesso ao Sistema.
-
-### Caso de Teste
+### 5.6 Item: "1.2.6 Logout"
+**Pré-Condição:** Ter acesso ao Sistema.
 
 | Caso de Teste | Descrição do teste | Resultado esperado |
 |--------------|-------------------|-------------------|
 | CT-06 | Verificar a funcionalidade de Logout:<br>1. Entrar na página de exibição dos produtos.<br>2. Clicar no botão que abre o menu, localizado na parte superior da tela do lado esquerdo.<br>3. Selecionar a opção "Logout" | Após executar o passo 3, o Sistema deve realizar o logout, exibindo novamente a tela de Login |
 
-### Execuções de Teste
 
 | ID de Execução | Credencial | Resultado Obtido | Status | Observação | Evidência | Severidade (téc.) | Impacto (p/ Usuários) |
 |---------------|------------|-----------------|--------|------------|-----------|-------------------|----------------------|
@@ -179,6 +158,8 @@ Ter acesso ao Sistema.
 | CT-06_LO-03 | Username "performance_glitch_user" / Password: "secret_sauce" | Resultado Obtido igual ao Resultado esperado | OK | - | CT-06_LO-03 | - | - |
 | CT-06_LO-04 | Username "error_user" / Password: "secret_sauce" | Resultado Obtido igual ao Resultado esperado | OK | - | CT-06_LO-04 | - | - |
 | CT-06_LO-05 | Username "visual_user" / Password: "secret_sauce" | Resultado Obtido igual ao Resultado esperado | OK | - | CT-06_LO-05 | - | - |
+
+
 
 ## 5.7 Layout - Avaliação de Layout / Usabilidade
 
