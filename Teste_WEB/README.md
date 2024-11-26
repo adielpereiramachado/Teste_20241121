@@ -143,6 +143,9 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 | CT-05_NEP-01 | Username "standard_user" / Password: "secret_sauce" | Resultado Obtido igual ao Resultado esperado | OK | (Melhoria) Deixar os itens do menu visiveis ou pelo menos com opção de ocultar/exibir. (Usabilidade)<br>(Melhoria) Exibir em uma parte superior da tela, Caminho completo da aplicação para melhor entendimento onde se está navegando. | CT-05_NEP-01.mp4 | Baixa | Baixo |
 | CT-05_NEP-02 | Username "problem_user" / Password: "secret_sauce" | Todas imagens comprometidas e ao clicar na foto do "Sauce Labs Backpack", na tela de detalhe exibe outro nome e foto do produto e também não é possível avançar pois não aceita add no carrinho. | NOK | - | CT-05_NEP-02.mp4 | Alta | Alto |
 
+
+
+
 ### 5.6 Item: "1.2.6 Logout"
 **Pré-Condição:** Ter acesso ao Sistema.
 
@@ -161,12 +164,10 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 
 
 
-## 5.7 Layout - Avaliação de Layout / Usabilidade
 
-### Pré-Condição: 
-Ter acesso ao Sistema.
+### 5.7 Item: Layout - Avaliação de Layout / Usabilidade
 
-### Avaliação de Layout
+**Pré-Condição:** Ter acesso ao Sistema.
 
 | Item | Descrição - Página - Avaliado: "Fluxo Completo de Compra" | Resultado esperado | standard_user | visual_user | Severidade (téc.) | Impacto (p/ Usuários) |
 |------|----------------------------------------------------------|-------------------|--------------|-------------|------------------|----------------------|
@@ -175,21 +176,129 @@ Ter acesso ao Sistema.
 | LU-03 | Idem anterior | 1. Logo abaixo do menu deve exibir texto fazendo menção a funcionalidade atual, nesse caso "Products", do lado oposto opção de ordenação dos produtos com valor padrão "Name (A to Z)" | Ok | OK | - | - |
 | LU-04 | Idem anterior | 1. Na parte central da página exibir os produtos | Ok | OK | - | - |
 | LU-05 | Idem anterior | 1. Cada produto deve conter: Imagem, Nome, descrição, valor e btn "Add to Card" | Ok - (Melhoria) Poderia exibir opção de inserir qtde do produto para vender mais de um | NOK - Problema com imagem do produto, texto do nome (1º) e descrição do produto e botão "Add to cart" desalinhado (último) | Média | Média |
+| LU-06 | Idem anterior | 1. Na parte inferior, ícone com links para redes sociais e texto de propriedade do Sistema. | Ok | Ok | - | - |
+| LU-07 | 2. Entrando no detalhe do produto, seja clicando na foto do produto ou no nome do produto, p.exe.: Sauce Labs Backpack (depois pode escolher outro se for o caso) | O sistema deve redirecionar para outra página contendo:  1. Menu à esquerda da parte superior. | Ok | OK | - | - |
+| LU-08 | Idem anterior | 1. Título da página no centro da parte superior. | Ok | OK | - | - |
+| LU-09 | Idem anterior | 1. Carrinho à direita da parte superior. | Ok | NOK - Íconde do Carrinho fora da possição correta. LU-09_visual-user.png | Baixa | Média |
+| LU-10 | Idem anterior | 1. Um botão abaixo do botão menu e com texto "Back to products" | Ok | Ok | - | - |
+| LU-11 | Idem anterior | 1. Imagem ampliada do produto selecionado. | Ok | Ok | - | - |
+| LU-12 | Idem anterior | 1. Nome do produto. | Ok | Ok | - | - |
+| LU-13 | Idem anterior | 1. Descrição do produto. | Ok | NOK - Problema com texto da descrição do produto. LU-13_visual-user.png | Média | Média |
+| LU-14 | Idem anterior | 1. Valor do produto | Ok | NOK - Para o produto "Sauce Labs Bike Light" na tela principal exibe um valor e ao entrar na tela de detalhe exibe outro. LU-14_visual-user.mp4 | Alta | Alto |
+| LU-15 | Idem anterior | 1. Botão abaixo do valor com texto "Add to cart" | Ok - (Melhoria) Iidem LU-05 | OK | - | - |
+| LU-16 |  3. Clicando no botão "Add to cart" e depois no ícone do Carrinho, vai para nova página do Carrinho. | Nessa tela deve mante os 3 componentes: 1. Menu,  2. Título. 3. Carrinho adiciona contador indicando que tem produto | Ok | NOK - Carrinho continua desalihado. LU-23_visual-user.png | Baixa | Média |
+| LU-17 | Idem anterior | 1. Indicação de quantidade de produto | OK - (Melhoria) Iidem LU-05 | OK | - | - |
+| LU-18 | Idem anterior | 1. Nome do produto. | Ok | OK | - | - |
+| LU-19 | Idem anterior | 1. Descrição do produto. | Ok | NOK - Problema com texto da descrição do produto. LU-23_visual-user.png | Baixa | Média |
+| LU-20 | Idem anterior | 1. Valor do produto | Ok | NOK -Valor mudou novamente. LU-23_visual-user.png | Alta | Alto |
+| LU-21 | Idem anterior | 1. Botão lado do valor com texto "Remove" | Ok | OK | - | - |
+| LU-22 | Idem anterior | 1. Na parte inferior abaixo do valor, deve exibir btn "Continue Shopping". | Ok | OK | - | - |
+| LU-23 | Idem anterior | 1. Na parte inferior abaixo do btn "Remove", deve exibir btn "Chekout". | Ok | NOK - Botão "Checkout" em local incorreto, está´exibindo acima do Carrinho. LU-23_visual-user.png | Baixa | Média |
+| LU-24 | 4. Clicando no botão "Checkout" vai para outra página "Your information" | Nessa tela deve mante os 3 componentes: 1. Menu,  2. Título. 3. Carrinho. | Ok | NOK - Carrinho continua desalihado. LU-24_visual-user.png" | Baixa | Média |
+| LU-25 | Idem anterior | 1. Deve exibir 3 imput para inserir "First Name", "Last Name" e "Zip/State Code" | Ok | OK | - | - |
+| LU-26 | Idem anterior | 1. Na parte inferior à esquerda, deve exibir btn "Cancel". | Ok | Ok | - | - |
+| LU-27 | Idem anterior | 1. Na parte inferior à direita, deve exibir btn "Continue". | Ok | Ok | - | - |
+| LU-28 | 5. Clicando no botão "Checkout" vai para página "Overview" | Nessa tela deve mante os 3 componentes: 1. Menu,  2. Título. 3. Carrinho. | Ok | NOk - Carrinho continua desalihado. LU-28_visual-user.png" | Baixa | Média |
+| LU-29 | Idem anterior | 1. Mesmo quadro com Quantidade, Nome, Descrição e valor do produto. | Ok | NOK - .Problema com texto da descrição do produto. LU-29_visual-user.png | Baixa | Média |
+| LU-30 | Idem anterior | 1. Informações sobre valores totais e taxas | Ok | OK | - | - |
+| LU-31 | Idem anterior | 1. Na parte inferior à esquerda, deve exibir btn "Cancel". | Ok | OK | - | - |
+| LU-32 | Idem anterior | 1. Na parte inferior à direita, deve exibir btn "Finish". | Ok | OK | - | - |
+| LU-33 | 6. Clicando no botão "Finish", vai para tela "Complete!" | Nessa tela deve mante os 3 componentes:  1. Menu,  2. Título,  3. Carrinho que nesse momento o contador deve ser retirado (zerado). | Ok | NOK - Carrinho continua desalihado, mas sem o contador indicando que corretamente está vazio. LU-33_visual-user.png | Baixa | Média |
+| LU-34 | Idem anterior | 1. Deve exibir msg confirmando a compra "Thank you for your order!", " Your order has been dispatched, and will arrive just as fast as the pony can get there!" e um icone de um visto em cor Verde. 2. Exibe um texto abaixo do menu "Checkout: Complete!". 3. Deve exibir ainda um botão "Back Home" na cor Verde, na parte inferior da tela. | OK - (Melhoria) A palavra/termo Ponei, não considero a mais indica, pois Usuários podem não gostardo tom de brincadeira, etc. Sugestão de rever frase deixando mais formal. LU-34_standart-user.png | OK - (Melhoria) A palavra/termo Ponei, não considero a mais indica, pois Usuários podem não gostardo tom de brincadeira, etc. Sugestão de rever frase deixando mais formal. LU-34_visual-user.png | - | - |
+| LU-35 | 7. Clicar no botão "Back Home". | 1. O Sistema deve retornar para a página principal exibindo os produtos. 2. Mudar a URL para: https://www.saucedemo.com/inventory.html | Ok | NOK - Exibe os mesmos problemas já relatados em LU-02 e LU-05 | Baixa | Média |
+| LU-36 | 8. Clicar no botão que abre o menu, localizado na parte superior da tela do lado esquerdo e  Selecionar a opção "Logout". | 1. O Sistema deve realizar o logout, exibindo novamente a tela de Login. 2. Mudar a URL para: https://www.saucedemo.com/ | Ok | Ok | - | - |
 
-# final do arq 3.0 pend 3.1 ...
+
+
+### 5.8 Item: ista de Melhorias: "1.3.1.3 Sugestões de melhorias de UX/UI"
+
+
+| ID de Execução | Descrição do teste passo a passo | Credencial utilizada no Teste | Resultado esperado | Resultado Obtido | Observação | Evidência | Severidade (téc.) | Impacto (p/ Usuários) |
+|---------------|----------------------------------|-------------------------------|--------------------|-----------------|--------------|-----------|--------------------|----------------------|
+| CT-01_LDTUD-04 | Verificar se realiza Login no Sistema:<br>1. Acessar site.<br>2. Inserir o nome do Usuário no campo "Username"<br>3. Inserir a senha do Usuário no campo "Password"<br>4. Clicar no botão "Login". | Username "performance_glitch_user" / Password: "secret_sauce" | 1. O Sistema deve responde em no máximo 3 segundos.<br>2. Sistema deve permitir o login.<br>3. Ir para URL https://www.saucedemo.com/inventory.html.<br>4. Exibir o texto "Swag Labs" no título da página. | Sistema demorou próximo de 5 seg. para responder, dessa forma não atendendo o que foi especificado de 3 segundos. | **(Melhoria)** Poderia inserir função de "Loading..." enquanto realiza login, sem falar correção da causa raiz da demora atual claro. | CT-01_LDTUD-04.mp4 | Baixa | Média |
+| CT-01_LDTUD-07 | Idem anterior | Username "standard_user" / Password: "1234" - (Senha Errada) | Exibir mensagem ao Usuário que não corresponde a usuário/senha validos | Exibiu mensagem de erro informando "Epic sadface: Username and password do not match any user in this service". No entanto a mensagem quase fica impossível de ler devido tamanho do texto | **(Melhoria) (Usabilidade)** Considero uma Melhoria a questão do texto não ser exibido por completo no campo destinado para tal.<br>**(Melhoria) (Usabilidade)** Poderia ter opção de visualizar/ocultar caracteres da senha.<br>**(Melhoria) (Usabilidade)** Sistema poderia ter opção "Esqueci a senha".<br>**(Melhoria) (Usabilidade) (Risco)** Poderia ter pelo menos função de captcha e/ou Autenticação com 2 fatores. | CT-01_LDTUD-07.mp4<br>CT-01_LDTUD-07.png | Baixa | Média |
+| CT-02_OFP-04 | Verificar a funcionalidade da opção de ordenação e filtragem de produtos, selecionando ordenação por nome do produto:<br>1. Clicar no componente de ordenação e filtragem, representado pela caixa de seleção exibindo a ordenação corrente.<br>2. Escolher a 2ª opção "Name (Z to A)". | Username "performance_glitch_user" / Password: "secret_sauce" | 1. O Sistema deve responde a ordenação em no máximo 2 segundos.<br>2. Sistema deve ordenar os produtos de forma decrescente, utilizando como base para ordenação o nome de cada produto. | Sistema demora mais que 2 seg para realizar ordenação. | **(Melhoria)** Poderia inserir função de "Loading..." enquanto realiza ordenação dos produtos em tela, sem falar correção da causa raiz da demora atual claro. | CT-02_OFP-04.mp4 | Baixa | Média |
+| CT-05_NEP-01 | Navegação entre as Páginas durante Fluxo Completo de Compra<br>Avaliação do Menu do Sistema<br>*Obs. Fiz um ultra resumo, para mais detalhes ver Casos de teste 5.5 Navegação Entre Páginas | Username "standard_user" / Password: "secret_sauce" | Conseguir finalizar compra<br>*Obs. Fiz um ultra resumo, para mais detalhes ver Casos de teste 5.5 Navegação Entre Páginas | **(Melhoria)** Deixar os itens do menu visíveis ou pelo menos com opção de ocultar/exibir. (Usabilidade)<br>**(Melhoria)** Exibir em uma parte superior da tela, Caminho completo da aplicação para melhor entendimento onde se está navegando. | **(Melhoria)** Deixar os itens do menu visíveis ou pelo menos com opção de ocultar/exibir. (Usabilidade)<br>**(Melhoria)** Exibir em uma parte superior da tela, Caminho completo da aplicação para melhor entendimento onde se está navegando. | CT-05_NEP-01.mp4 | Baixa | Baixo |
+| R7-01 | Verificar comportamento do Sistema quando alterar ID de produto pela URL<br>1. Entrar na página de exibição dos produtos.<br>2. Clicar na foto de um produto.<br>3. Alterar o id do produto na URL para um inexistente e teclar "Enter".<br>4. Click no botão "Add to cart".<br>5. Clicar no ícone do carrinho de compras localizado no canto superior direito da página. | Username "standard_user" / Password: "secret_sauce" | Fazer alguma validação e não deixar adicionar ao carrinho um produto inexistente. | Após executar o passo 5, o Sistema tenta trocar de página mas não exibe mais nada. Saindo e retornando ainda consta o 'produto' no carrinho.<br>Tendo em vista a característica de não retirar o produto do carrinho ao fazer "Logout", fica impossível finalizar novas compras. Para sair dessa situação, deve-se entrar novamente no Sistema, selecionar um produto e alterar para o mesmo ID do produto inexistente, dessa forma o sistema vai exibir a foto de um cachorro como da primeira vez e basta clicar no botão 'Remove'. | Após executar o passo 3, o Sistema deveria confirmar se existe mesmo o ID passado e só exibir a tela com novas informações caso existisse o ID alterado e passo na URL passado.<br>Ou alguma ideia melhor que essa, o que não pode é continuar assim. | R7-01.mp4 | Alta | Alto |
+| R7-02 | Verificar comportamento do Sistema quando alterado nome do Usuário em configurações de Cookies<br>Verificar comportamento quando alterado id do produto<br>1. Entrar na página de exibição dos produtos.<br>2. Abrir opção do desenvolvedor no Browser.<br>3. Ir na opção "Application" > "Storage" > Cookies campo "Value".<br>4. Trocar de standard_user para visual_user. | Username "standard_user" / Password: "secret_sauce" | Não deixar vulnerável a troca do Usuário pelo Cookies | Após executar o passo 4 e voltando para a página do sistema, ele reage com as características do user inserido, neste caso apresentando problemas visuais. | Sistema não deveria permitir uma "troca" de usuário sem as devidas validações.<br>**(Melhoria)** Poderia ter validação de Captcha e/ou autenticação de 2 fatores para maior segurança. | R7-02.mp4 | Alta | Alto |
+
+## Resumo Executivo de Melhorias
+
+### Principais Pontos de Melhoria:
+- Implementar função de "Loading" durante processos lentos
+- Melhorar usabilidade das mensagens de erro
+- Adicionar opções de segurança como autenticação de dois fatores
+- Melhorar tempo de resposta do sistema
+- Validar entrada de dados e IDs de produtos
+- Aprimorar visualização do menu e navegação
 
 
 
+### 5.9 Item: "1.3.1.4 Lista de bugs encontrados (se houver)"
+
+
+| ID de Execução | Descrição do teste passo a passo | Credêncial utilizada no Teste | Resultado esperado | Resultado Obtido | Observação | Evidência | Severidade (téc.) | Impacto (p/ Usuários)
+|------------|-------------------|---------|-------------------|-----------------|------------|------------|---------|---------|
+| CT-01_LDTUD-04 | Verificar se realiza Login no Sistema: 1. Acessar site. 2. Inserir o nome do Usuário no campo "Username" 3. Inserir a senha do Usuário no campo "Password" 4. Clicar no botão "Login". | Username "performance_glitch_user" / Password: "secret_sauce" | 1. O Sistema deve responde em no máximo 3 segundos. 2. Sistema deve permitir o login. 3. Ir para URL https://www.saucedemo.com/inventory.html. 4. Exibir o texto "Swag Labs" no título da página. | Sistema demorou próximo de 5 seg. para responder, dessa forma não atendento o que foi espec. de 3 segundos. | NOK - Criei essa 'regra' de tempo para simular alguma exigênia que ocorre realemten no dia a dia, por isso o NOK. (Melhoria) Poderia inserir função de "Loading..." enquanto realiza login, sem falar correção da causa raiz da demora atual claro. | CT-01_LDTUD-04.mp4 | Baixa | Médio |
+| CT-02_OFP-03 | Verificar a funcionalidade da opção de ordenação e filtragem de produtos, selecionando ordenação por nome do produto: 1. Clicar no componente de ordenação e filtragem, representado pela caixa de seleção exibindo a ordenação corrente. 2. Escolher a 2ª opção "Name (Z to A)". | Username "problem_user"     / Password: "secret_sauce" | 1. O Sistema deve responde a ordenação em no máximo 2 segundos. 2. Sistema deve ordenar os produtos de forma decrescente, utilizando como base para ordenação o nome de cada produto. | Sistema não realiza ordenção de nenhum tipo. | - | CT-02_OFP-03.mp4 | Média | Médio |
+| CT-02_OFP-04 | Idem anterior | Username "performance_glitch_user" / Password: "secret_sauce" | Idem anterior | Sistema demora mais que 2 seg para realizar ordenação. | (Melhoria) Poderia inserir função de "Loading..." enquanto realiza ordenação dos produtos em tela, sem falar correção da causa raiz da demora atual claro. | CT-02_OFP-04.mp4 | Baixa | Médio |
+| CT-02_OFP-05 | Idem anterior | Username "error_user"         / Password: "secret_sauce" | Idem anterior | Sistema não realiza ordenão de nenhum tipo. | Exibe aviso de problema e que já´foi relatado | CT-02_OFP-05.mp4 | Média | Médio |
+| CT-02.01_OFP-02 | Verificar a funcionalidade da opção de ordenação e filtragem de produtos, selecionando ordenação por preço do produto: 1. Entrar na página de exibição dos produtos. 2. Clicar no componente de ordenação e filtragem, representado pela caixa de seleção exibindo a ordenação corrente. 3. Escolher a 4ª opção "Price (high to low)". | Username "problem_user"     / Password: "secret_sauce" | 1. O Sistema deve responde a ordenação em no máximo 2 segundos. 2. Sistema deve ordenar os produtos de forma decrescente, utilizando como base para ordenação o valor de cada produto. | Sistema não realiza ordenção de nenhum tipo. | - | CT-02.01_OFP-02.mp4 | Média | Médio |
+| CT-02.01_OFP-03 | Idem anterior | Username "performance_glitch_user" / Password: "secret_sauce" | Idem anterior | Sistema demora mais que 2 seg para realizar ordenação. | Tendo em vista regra que idealizei de responder < de 2 seg para criar uma regra de performance (no dia a dia deve ter), assim considero NOK para investigarem causa raiz. | CT-02.01_OFP-03.mp4 | Baixa | Médio |
+| CT-02.01_OFP-04 | Idem anterior | Username "error_user"         / Password: "secret_sauce" | Idem anterior | Sistema não realiza ordenão de nenhum tipo. | Exibe aviso de problema e que já´foi relatado | CT-02.01_OFP-04.mp4 | Média | Médio |
+| CT-02.01_OFP-05 | Idem anterior | Username "visual_user"       / Password: "secret_sauce" | 1. O Sistema deve responde a ordenação em no máximo 2 segundos. 2. Sistema deve ordenar os produtos de forma decrescente, utilizando como base para ordenação o valor de cada produto. | Sistema exibe novos valores dos produtos e não ordena corretamente que é o foco do teste. | Foi identificado p/ esse Usuárioque o valor dos prod são alterados e a cada solicitação de ordenação os valor mudam. | CT-02.01_OFP-05.mp4 | Alta | Alto |
+| CT-03_FCC-03 | Verificar funcionamento do fluxo completo de compra - Selecionando um produto pela tela principal: 1. Entrar na página de exibição dos produtos. 2. Adicionar um produto ao carrinho clicando no botão "Add to cart" correspondente ao produto desejado. 3. Clicar no ícone do carrinho de compras localizado no canto superior direito da página. 4. Na página do carrinho, verificar nome do produto, a descrição dos detalhes do produto e preço. 5. Clicar no botão "Checkout". 6. Preencher as informações de checkout na página "First Name", "Last Name" e "Zip/Postal Code" e clicar no botão "Continue". 7. Na página de resumo, verificar os detalhes do pedido, incluindo quantidade, o nome, descrição e preço do produto, bem como o total da compra. 8. Clicar no botão "Finish". 9. Clicar no botão "Back Home". | Username "problem_user"     / Password: "secret_sauce" | 1. Carrinho deve estar vazio. 2. Carrinho deve exibir qtde de produto. 3/4. Deve exibir detalhe do produto. 5. Deve redirecionar para nova página para inserir dados de entrega. 6. Os dados deve vir em branco possibilitando insersão nos 3 campos. Todos campos obrigatórios e qdo tentar avançar sem preencher deve exibir msg informativa do campo vazio para devido preenchimento. 7. Deve haver consistências do nome, descrição e valor do produto, bem como as totalização do valor. 8. O sistema deve ter acatado a ordem de compra dos produtos confirmados exibindo uma mensagem de conclusão da compra "THANK YOU FOR YOUR ORDER" e um botão "Back Home". 9. Em clicando em "Back Home" Sistema deve retornar à página principal dos produtos. | Ao inserir valor para "Last Name" , exibe no campo "First Name". | - | CT-03_FCC_03.mp4 | Alta | Alto |
+| CT-03_FCC-05 | Idem anterior | Username "error_user"         / Password: "secret_sauce" | Idem anterior | Ao inserir valor para "Last Name" , nãõ registra insersão de nenhum valor. | Problema semelhante ao CT-04_FCC_03, mas este não insere o valor no campo First Name. | CT-03_FCC_05.mp4 | Alta | Alto |
+| CT-03_FCC-06 | Idem anterior | Username "visual_user"       / Password: "secret_sauce" | Idem anterior | Apresenta problema de layout significativo ícone do carrinho e botão de "Checkout" deslocado. | - | CT-03_FCC_06.mp4 | Média | Médio |
+| CT-03.01_FCC-01 | Verificar funcionamento do fluxo completo de compra - Sem selecionar nenhum produto: 1. Entrar na página de exibição dos produtos. 2. Certificasse que o carrinho está vazio, se não tive remova os produtos até que fique sem nenhum. 3. Clicar no ícone do carrinho de compras localizado no canto superior direito da página. 4. Na página do carrinho, observe e certificasse que não exibe produto algum. 5. Clicar no botão "Checkout". | Username"standard_user"     / Password: "secret_sauce" | 1. Ao  tentar executar o passo 5 click no btn "Checkout" o Sistema deveria validar a situação e não deixar avançar. 2. Poderia exibir uma mensagem informando que o carrinho está vazio e bloquear avançar no fluxo. | O Sistema não impediu de avançar no fluxo da compra mesmo não tendo produto no carrinho | - | CT-03.01_FCC-01.mp4 | Alta | Alto |
+| CT-04_RIC-02 | Verificar a funcionalidade de remover produtos do Carrinho - pela página principal: 1. Entrar na página de exibição dos produtos. 2. Adicionar um produto ao carrinho clicando no botão "Add to cart" correspondente ao produto desejado. 3. Após o botão mudar o texto de "Add to cart", clicar no botão que agora deve ter o texto "Remove". 4. Adicionar um produto ao carrinho novamente. 5. Clicar no ícone do Carrinho. 6. Clicar no btn "remove". | Username "problem_user"     / Password: "secret_sauce" | 1. Quando executado o passo 2, o Sistema deve exibir um contador sobre o ícone do carrinho localizado na parte superior à direita da página, sinalizando que o carrinho tem a quantidade de produto exibido. 2. Após execução do passo 3 e 6, o Sistema deve remover o contador sobre o ícone do carrinho, sinalizando que o carrinho está vazio. | 1. Para o produto "Sauce Labs Bike Light" não foi possível remover pela tela principal, somente clicando em "Remove" dentro do Carrinho. 2. o Nome do produto "Test.allTehThings() T-Shirt (Red)" contem erro. 3. Imagens dos produtos contém erro exibindo um cachorro. 4. Não foi possível add no carrinho o produto "Test.allTehThings() T-Shirt (Red)" 5. Ao entrar em detalhe do produto " Sauce Labs Fleece Jacket" o nome muda para "Item NOT FOUD". | - | CT-04_RIC-02.mp4 | Alta | Alto |
+| CT-04_RIC-04 | Idem anterior | Username "error_user"         / Password: "secret_sauce" | Idem anterior | 1. Para o produto "Sauce Labs Backpack" não foi possível remover pela tela principal, nem pela de detalhe do produto, somente clicando em "Remove" dentro do Carrinho. 2. Para o "Test.allTehThings() T-Shirt (Red)" não foi possível add no carrinho pela tela principal.  | - | CT-04_RIC-04.mp4 | Alta | Alto |
+| CT-04_RIC-05 | Idem anterior | Username "visual_user"       / Password: "secret_sauce" | Idem anterior | 1. Para o produto ""Test.allTehThings() T-Shirt (Red)" o btn "Add to cart" e por conseq. "Remove" são exibidos desalinhados for ado frame com info do produto. | - | CT-04_RIC-05.mp4 | Alta | Alto |
+| CT-05_NEP-02 | Navegação entre as Páginas durante Fluxo Completo de Compra *Obs. Fiz um ultra resumo, para mais detalhes ver Casos de teste 5.5 Navegação Entre Páginas  | Username "problem_user"     / Password: "secret_sauce" | Conseguir filnalizar compra  *Obs. Fiz um ultra resumo, para mais detalhes ver Casos de teste 5.5 Navegação Entre Páginas  | Todas imagens comprometidas e ao clicar na foto do "Sauce Labs Backpack" , na tela de detalhe exibe outro nome e foto do produto e também não é possível avançar pois não aceita add no carrinho. | - | CT-05_NEP-02.mp4 | Alta | Alto |
+| LU-02 | Verificação de Layout durante Fluxo Completo de Compra. Tela: Principal de exibição dos produtos | Username "visual_user" / Password: "secret_sauce" | 1. Deve exibir na parte superior da página botão de menu (à esquerda), ao centro ter o texto "Swag Labs" e botão do carrinho (à direita). | NOK - Íconde do Carrinho fora da possição correta. LU-02_visual-user.png | - | LU-02_visual-user.png | Baixa | Médio |
+| LU-05 | Idem anterior | Idem anterior | 1. Cada produto deve conter: Imagem, Nome, descrição, valor e btn "Add to Card". | NOK - Problema com imagem do produo, texto do nome  (1º)e descrição do produto e botão "Add to cart" desalinhado (último). LU-05_visual-user.png |  | LU-05_visual-user.png | Média | Médio |
+| LU-09 | 2. Entrando no detalhe do produto, seja clicando na foto do produto ou no nome do produto, p.exe.: Sauce Labs Backpack (depois pode escolher outro se for o caso) | Idem anterior | 1. Carrinho à direita da parte superior. | NOK - Íconde do Carrinho fora da possição correta. LU-09_visual-user.png | - | LU-09_visual-user.png | Baixa | Médio |
+| LU-13 | Idem anterior | Idem anterior | 1. Exibir Descrição completa  do produto. | NOK - Problema com texto da descrição do produto. LU-13_visual-user.png | - | LU-13_visual-user.png | Média | Médio |
+| LU-14 | Idem anterior | Idem anterior | 1. Exibir Valor do produto | NOK - Para o produto "Sauce Labs Bike Light" na tela principal exibe um valor e ao entrar na tela de detalhe exibe outro. LU-14_visual-user.mp4 | - | LU-14_visual-user.mp4 | Alta | Alto |
+| LU-16 |  3. Clicando no botão "Add to cart" e depois no ícone do Carrinho, vai para nova página do Carrinho. | Idem anterior | Nessa tela deve mante os 3 componentes: 1. Menu,  2. Título. 3. Carrinho adiciona contador indicando que tem produto | NOK - Carrinho continua desalihado. LU-23_visual-user.png | - | LU-23_visual-user.png | Baixa | Médio |
+| LU-19 | Idem anterior | Idem anterior | 1. Exibir Descrição completa  do produto. | NOK - Problema com texto da descrição do produto. LU-23_visual-user.png | - | LU-23_visual-user.png | Baixa | Médio |
+| LU-20 | Idem anterior | Idem anterior | 1. Exibir Valor do produto | NOK -Valor mudou novamente. LU-23_visual-user.png | - | LU-23_visual-user.png | Alta | Alto |
+| LU-23 | Idem anterior | Idem anterior | 1. Na parte inferior abaixo do btn "Remove", deve exibir btn "Chekout". | NOK - Botão "Checkout" em local incorreto, está´exibindo acima do Carrinho. LU-23_visual-user.png | - | LU-23_visual-user.png | Baixa | Médio |
+| LU-24 | 4. Clicando no botão "Checkout" vai para outra página "Your information" | Idem anterior | Nessa tela deve mante os 3 componentes: 1. Menu,  2. Título. 3. Carrinho. | NOK - Carrinho continua desalihado. LU-24_visual-user.png" | - | LU-24_visual-user.png" | Baixa | Médio |
+| LU-28 | 5. Clicando no botão "Checkout" vai para página "Overview" | Idem anterior | Nessa tela deve mante os 3 componentes: 1. Menu,  2. Título. 3. Carrinho. | NOk - Carrinho continua desalihado. LU-28_visual-user.png" | - | LU-28_visual-user.png" | Baixa | Médio |
+| LU-29 | Idem anterior | Idem anterior | 1. Mesmo quadro com Quantidade, Nome, Descrição e valor do produto. | NOK - .Problema com texto da descrição do produto. LU-29_visual-user.png | - | LU-29_visual-user.png | Baixa | Médio |
+| LU-33 | 6. Clicando no botão "Finish", vai para tela "Complete!" | Idem anterior | Nessa tela deve mante os 3 componentes:  1. Menu,  2. Título,  3. Carrinho que nesse momento o contador deve ser retirado (zerado). | NOK - Carrinho continua desalihado, mas sem o contador indicando que corretamente está vazio. LU-33_visual-user.png | - | LU-33_visual-user.png | Baixa | Médio |
+| LU-35 | 7. Clicar no botão "Back Home". | Idem anterior | 1. O Sistema deve retornar para a página principal exibindo os produtos. 2. Mudar a URL para: https://www.saucedemo.com/inventory.html | NOK - Exibe os mesmos problemas já relatados em LU-02 e LU-05 | - | LU-02 e LU-05 | Baixa | Médio |
+
+#### 5.9.1 Observações Gerais:
+- Principais áreas com defeitos:
+  1. Login
+  2. Ordenação de produtos
+  3. Fluxo de compra
+  4. Remoção de produtos no carrinho
+
+### 5.10 Item: "1.3.1.5 Análise de riscos da aplicação"
+
+
+| ID | Resumo | Passo a Passo | Resultado Obtido | Minha sugestão | Evidência | Severidade (téc.) | Impacto (p/ Usuários) 
+|------------|-------------------|---------|-------------------|-----------------|------------|------------|---------|
+| R7-01 | Verificar comportamento do Sistema quando alterar ID de produto pela URL | 1. Entrar na página de exibição dos produtos. 2. Clicar na foto de um produto. 3. Alterar o id do produto na URL para um inexistente e teclar "Enter". 4. Click no botão "Add to cart". 5. Clicar no ícone do carrinho de compras localizado no canto superior direito da página. | Após executar o passo 5, o Sistema tenta trocar de página mas não exibe mais nada. Saindo e retornando ainda consta o 'produto' no carrinho. Tendo em vista a caracteristica de não retirar o produto do carrinho ao fazer "Logout", fica impossível finalizar novas compra. Para sair dessa situação, deve-se entar novamente no Sistema, selecionar um produto e alterar para o mesmo ID do produto inexiste, dessa forma o sistema vai exibir a foto de um cachorro como da imeira vez e basta clicar no botão 'Remove". | Após executar o passo 3, o Sistema deveria confirmar se existe mesmo o ID passado e só exibir a tela com novas informações caso existisse o ID alterado e passo na URL passado. Ou alguma idea melhor que essa, o que não pode é continuar assim. | R7-01.mp4 | Alta | Alto |
+| R7-02 | Verificar comportamento do Sistema quando alterado nome do Usuário em configurações de Cookies | Verificar comportamento quando alterado id do produto 1. Entrar na página de exibição dos produtos. 2. Abrir opção do desenvolvedor no Browser. 3. Ir na opção "Appication" > "Storage" > Cookies" campo "Value". 4. Trocar  de standard_user para visual_user.  | Após executar o passo 4 e voltando para a página do sistema, ele reagem com as caracteristica do user inserido, neste caso apresentando problemas visuais. | Sistema não deveria permitir uma "troca" de usuário sem as devidas validações. (Melhoria) Poderia ter validação de Captcha e/ou aut de 2 fatores para maior segurança. | R7-02.mp4 | Alta | Alto |
+
+
+### 5.11 Item: "1.3.2.1 Testes de responsividade" e "1.3.2.2 Testes de acessibilidade"
+Não consegui avançar nesse item apesar de acreditar muito em seu valor e perceber que o Site usado, necessita realmente de algumas melhorias nestes quesitos.<br>
+No entanto, executei uma avaliação com "PageSpeed Insights" do google, onde deixo o relatório disponível na pasta .\Relatorios.
 
 
 
+### 5.12 Item: "1.3.2.3 Sugestões de automação"
+Quando o assunto é automatização, acredito que o escopo do que se deve ou não ser automatizado, passa por alguns critérios.<br> Abaixo descrevo alguns começando pelos de maior relavância:<br>
+1.Fluxos onde se existir defeito, o impacto para o Negócio é grande (geralmente passa por assuntos de perda financeira, mas não só);<br>2. Fluxos onde se executa muitas vezes e/ou são muito longos e/ou demorados;<br>3. Fluxos onde a parte do Sistema demanda mais complexidade no código;<br>4.Fluxos onde sejá fácil mensuração de tempo/velocidade/duração para constante comparação (acada execução), assim possibilitando identificar o quanto antes algum problema quanto a performance.
 
 
 
-
-
-
-
+Aqui deixo (pasta .\Robotframework) um exemplo prático bem simples, para ter uma noção do teste com Robotframework utilizando a Library Browser do Playwright (venho estudando recentemente essa combinação).
 
 
 
