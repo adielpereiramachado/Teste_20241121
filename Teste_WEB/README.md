@@ -24,28 +24,15 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 5. `error_user` - Usuário com algum problema.
 6. `visual_user` - Usuário que gera problema visual no Sistema.
 
-## 5. Casos de Teste - 1.3.1.2 Resultados dos testes executados
+## 5. Casos de Teste - "1.3.1.2 Resultados dos testes executados"
 
-### 5.1 Login com Diferentes Tipos de Usuários Disponíveis
-
-#### 5.1.1 Cenário de Teste: 1.2.1 Login com diferentes tipos de usuários disponíveis
+### 5.1 Item: "1.2.1 Login com diferentes tipos de usuários disponíveis"
 
 **Pré-Condição:** Ter acesso às credenciais de Identificação de todos os Usuário (cada um com suas características para simulação).
 
-##### Caso de Teste CT-01
-
-**Descrição do teste passo a passo:**
-1. Verificar se realiza Login no Sistema:
-   - Acessar site
-   - Inserir o nome do Usuário no campo "Username"
-   - Inserir a senha do Usuário no campo "Password"
-   - Clicar no botão "Login"
-
-**Resultado esperado:**
-1. O Sistema deve responde em no máximo 3 segundos
-2. Sistema deve permitir o login
-3. Ir para URL https://www.saucedemo.com/inventory.html
-4. Exibir o texto "Swag Labs" no título da página
+| Caso de Teste | Descrição do teste | Resultado esperado |
+|--------------|-------------------|-------------------|
+| CT-01 | Verificar se realiza Login no Sistema:<br>1. Acessar site<br>2. Inserir o nome do Usuário no campo "Username"<br>3. Inserir a senha do Usuário no campo "Password"<br>4. Clicar no botão "Login"| . Login com sucesso:<br>1. O Sistema deve responde em no máximo 3 segundos<br>2. Sistema deve permitir o login<br>3. Ir para URL https://www.saucedemo.com/inventory.html<br>4. Exibir o texto "Swag Labs" no título da página.<br><br> . Login falha credencial:<br>1. Sistema não deve permitir Login.<br>2. Deve exibir mensagem "Epic sadface: Username and password do not match any user in this service".<br><br> . Login Usuário bloqueado:<br>1 Sistema não deve permitir Login.<br>2. Deve exibir mensagem "Epic sadface: Sorry, this user has been locked out.".<br>Obs. O termo "Epic sadface:" não tenho certeza se está certo, então sugeriria revisão.|
 
 | ID de Execução | Credencial | Resultado Obtido | Status | Observação | Evidência | Severidade (téc.) | Impacto (p/ Usuários) |
 |---------------|------------|-----------------|--------|------------|-----------|-------------------|----------------------|
@@ -55,45 +42,29 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 | CT-01_LDTUD-04 | Username "performance_glitch_user" / Password: "secret_sauce" | Sistema demorou próximo de 5 seg. para responder, dessa forma não atendento o que foi espec. de 3 segundos. | NOK, Melhoria | (Melhoria) Poderia inserir função de "Loading..." enquanto realiza login, sem falar correção da causa raiz da demora atual claro. | CT-01_LDTUD-04.mp4 | Baixa | Média |
 | CT-01_LDTUD-05 | Username "error_user" / Password: "secret_sauce" | Resultado Obtido igual ao Resultado esperado | Ok | - | CT-01_LDTUD-05.mp4 | - | - |
 | CT-01_LDTUD-06 | Username "visual_user" / Password: "secret_sauce" | Resultado Obtido igual ao Resultado esperado | Ok | - | CT-01_LDTUD-06.mp4 | - | - |
-| CT-01_LDTUD-07 | Username "standard_user" / Password: "1234" - (Senha Errada) | Exibiu mensagem de erro informando "Epic sadface: Username and password do not match any user in this service". | Melhoria | (Melhoria) (Usabilidade) Considero uma Melhoria a questão do texto não ser exibido por completo no campo destinado para tal.<br>(Melhoria) (Usabilidade) Poderia ter opção de visualizar/ocultar caracteres da senha.<br>(Melhoria) (Usabilidade) Sistema poderia ter opção "Esqueci a senha".<br>(Melhoria) (Usabilidade) (Risco) Poderia ter pelo menos funcação de captcha e/ou Autenticação com 2 fatores. | CT-01_LDTUD-07.mp4<br>CT-01_LDTUD-07.png | Baixa | Média |
+| CT-01_LDTUD-07 | Username "standard_user" / Password: "1234" - (Senha Errada) | Exibiu mensagem de erro informando "Epic sadface: Username and password do not match any user in this service". | Melhoria | (Melhoria) (Usabilidade) Considero uma Melhoria a questão do texto não ser exibido por completo no campo destinado para tal.<br>(Melhoria) (Usabilidade) Poderia ter opção de visualizar/ocultar caracteres da senha.<br>(Melhoria) (Usabilidade) Sistema poderia ter opção "Esqueci a senha".<br>(Melhoria) (Usabilidade) (Risco) Poderia ter pelo menos funcação de captcha e/ou Autenticação com 2 fatores. | CT-01_LDTUD-07.mp4<br>CT-01_LDTUD-07.png | Baixa | Médio |
 
-### 5.2 Ordenação e Filtragem de Produtos
-
-#### 5.2.1 Cenário de Teste: 1.2.2 Ordenação e Filtragem de Produtos
+### 5.2 Item: "1.2.2 Ordenação e Filtragem de Produtos"
 
 **Pré-Condição:** Estar logado e na página principal de listagem de produtos.
 
-##### Caso de Teste CT-02
+| Caso de Teste | Descrição do teste | Resultado esperado |
+|--------------|-------------------|-------------------|
+|CT-02|Verificar a funcionalidade da opção de ordenação e filtragem de produtos, selecionando ordenação por nome do produto:<br>1. Clicar no componente de ordenação e filtragem, representado pela caixa de seleção exibindo a ordenação corrente.<br>2. Escolher a 2ª opção "Name (Z to A)".|1. O Sistema deve responde a ordenação em no máximo 2 segundos. (Obs.: Criei essa regra de tempo para simular um requisito de performance e ser visível quando usado Usuário que tem lentidão)<br>2. Sistema deve ordenar os produtos de forma decrescente, utilizando como base para ordenação o nome de cada produto.|
 
-**Descrição do teste:**
-1. Verificar a funcionalidade da opção de ordenação e filtragem de produtos, selecionando ordenação por nome do produto:
-   - Clicar no componente de ordenação e filtragem, representado pela caixa de seleção exibindo a ordenação corrente
-   - Escolher a 2ª opção "Name (Z to A)"
-
-**Resultado esperado:**
-1. O Sistema deve responde a ordenação em no máximo 2 segundos
-2. Sistema deve ordenar os produtos de forma decrescente, utilizando como base para ordenação o nome de cada produto
 
 | ID de Execução | Credencial | Resultado Obtido | Status | Observação | Evidência | Severidade (téc.) | Impacto (p/ Usuários) |
 |---------------|------------|-----------------|--------|------------|-----------|-------------------|----------------------|
 | CT-02_OFP-01 | Username "standard_user" / Password: "secret_sauce" | Resultado Obtido igual ao Resultado esperado | OK | - | CT-02_OFP-01.mp4 | - | - |
 | CT-02_OFP-02 | Username "locked_out_user" / Password: "secret_sauce" | Usuário não atende pré-condições de uso, bloqueado. | - | - | - | - | - |
-| CT-02_OFP-03 | Username "problem_user" / Password: "secret_sauce" | Sistema não realiza ordenção de nenhum tipo. | NOK | - | CT-02_OFP-03.mp4 | Média | Média |
-| CT-02_OFP-04 | Username "performance_glitch_user" / Password: "secret_sauce" | Sistema demora mais que 2 seg para realizar ordenação. | NOK, Melhoria | (Melhoria) Poderia inserir função de "Loading..." enquanto realiza ordenação dos produtos em tela, sem falar correção da causa raiz da demora atual claro. | CT-02_OFP-04.mp4 | Baixa | Média |
-| CT-02_OFP-05 | Username "error_user" / Password: "secret_sauce" | Sistema não realiza ordenão de nenhum tipo. | NOK | Exibe aviso de problema e que já foi relatado | CT-02_OFP-05.mp4 | Média | Média |
+| CT-02_OFP-03 | Username "problem_user" / Password: "secret_sauce" | Sistema não realiza ordenção de nenhum tipo. | NOK | - | CT-02_OFP-03.mp4 | Média | Médio |
+| CT-02_OFP-04 | Username "performance_glitch_user" / Password: "secret_sauce" | Sistema demora mais que 2 seg para realizar ordenação. | NOK, Melhoria | (Melhoria) Poderia inserir função de "Loading..." enquanto realiza ordenação dos produtos em tela, sem falar correção da causa raiz da demora atual claro. | CT-02_OFP-04.mp4 | Baixa | Médio |
+| CT-02_OFP-05 | Username "error_user" / Password: "secret_sauce" | Sistema não realiza ordenão de nenhum tipo. | NOK | Exibe aviso de problema e que já foi relatado | CT-02_OFP-05.mp4 | Média | Médio |
 | CT-02_OFP-06 | Username "visual_user" / Password: "secret_sauce" | Resultado Obtido igual ao Resultado esperado | OK | Existem problemas de layout a ser tratado em outro CT | CT-02_OFP-06.mp4 | - | - |
 
-##### Caso de Teste CT-02.01
-
-**Descrição do teste:**
-1. Verificar a funcionalidade da opção de ordenação e filtragem de produtos, selecionando ordenação por preço do produto:
-   - Entrar na página de exibição dos produtos
-   - Clicar no componente de ordenação e filtragem, representado pela caixa de seleção exibindo a ordenação corrente
-   - Escolher a 4ª opção "Price (high to low)"
-
-**Resultado esperado:**
-1. O Sistema deve responde a ordenação em no máximo 2 segundos
-2. Sistema deve ordenar os produtos de forma decrescente, utilizando como base para ordenação o valor de cada produto
+| Caso de Teste | Descrição do teste | Resultado esperado |
+|--------------|-------------------|-------------------|
+|CT-02.01|Verificar a funcionalidade da opção de ordenação e filtragem de produtos, selecionando ordenação por preço do produto:<br>1. Entrar na página de exibição dos produtos.<br>2. Clicar no componente de ordenação e filtragem, representado pela caixa de seleção exibindo a ordenação corrente<br>3. Escolher a 4ª opção "Price (high to low)".|1. O Sistema deve responde a ordenação em no máximo 2 segundos.<br>2. Sistema deve ordenar os produtos de forma decrescente, utilizando como base para ordenação o valor de cada produto.
 
 | ID de Execução | Credencial | Resultado Obtido | Status | Observação | Evidência | Severidade (téc.) | Impacto (p/ Usuários) |
 |---------------|------------|-----------------|--------|------------|-----------|-------------------|----------------------|
@@ -103,14 +74,10 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 | CT-02.01_OFP-04 | Username "error_user" / Password: "secret_sauce" | Sistema não realiza ordenão de nenhum tipo. | NOK | Exibe aviso de problema e que já foi relatado | CT-02.01_OFP-04.mp4 | Média | Média |
 | CT-02.01_OFP-05 | Username "visual_user" / Password: "secret_sauce" | Sistema exibe novos valores dos produtos e não ordena corretamente que é o foco do teste. | NOK | Foi identificado p/ esse Usuário que o valor dos prod são alterados e a cada solicitação de ordenação os valor mudam. | CT-02.01_OFP-05.mp4 | Alta | Alto |
 
-# 5.3 Fluxo Completo de Compra
+### 5.3 Item: "1.2.3 Fluxo completo de compra (do carrinho até finalização)"
 
-## 5.3.1 Cenário de Teste 1.2.3 Fluxo Completo de Compra (do carrinho até finalização)
+**Pré-Condição:** Ter acesso ao Sistema.
 
-### Pré-Condição: 
-Ter acesso ao Sistema.
-
-### Caso de Teste
 
 | Caso de Teste | Descrição do teste | Resultado esperado |
 |--------------|-------------------|-------------------|
