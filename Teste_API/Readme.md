@@ -2,7 +2,7 @@
 
 ***[RESTFULL BOOKER](https://restful-booker.herokuapp.com/)***
 
-*versão do documento: 2.1*
+*versão do documento: 2.2*
 
 ## 1. Objetivo:
 Este artefato descreve o plano de teste contra o site https://restful-booker.herokuapp.com/. 
@@ -241,10 +241,14 @@ Existir uma reserva criada no Sistema e com ciência da Data Checkout
 | 2.2.3.3 Buscar reservas por data de check-out | 2.2.3.3.b Buscar reservas por data MENOS 1 DIA do check-out - GetBookingIds - BRCO-05 | Passar data Checkout MENOR que a Data cadastrada/setada na criação da reserva. | "Deve exibir o ID da reserva encontrada: [ { "bookingid": 1272 } ]" | Não exibiu o registro de reserva criado conforme o esperado. | "Na espec. diz: Return bookings that have a checkout date greater than or equal to the set checkout date. Format must be CCYY-MM-DD Sendo assim, prosegui com esse critério nesta minha avaliação, apesar de achar estranho. Sugestão: Indicar revisão da regra." |
 | Idem anterior | 2.2.3.3.c Buscar reservas por data MAIS 1 DIA do check-out - GetBookingIds - BRCO-06 | Passar data Checkout MAIOR que a Data cadastrada/setada na criação da reserva. | "O sistema não deve localizar reserva e deve exibir: [] ou exibir bookingid de outros registros que satisfaçam o critério." | Exibiu o registro de reserva criado conforme o esperado. | "Na espec. diz: Return bookings that have a checkout date greater than or equal to the set checkout date. Format must be CCYY-MM-DD Sendo assim, prosegui com esse critério nesta minha avaliação, apesar de achar estranho. Sugestão: Indicar revisão da regra." |
 
-## 6. Relatório Newman:
+## 6. Arquivos das request:
+Deixei os artefatos para reproduzir os testes na pasta .\Request.  ([link para Request](https://github.com/adielpereiramachado/Teste_20241121/tree/main/Teste_API/Request))
+
+
+## 7. Relatório Newman:
 Tentando facilitar a visualização da execução da Colletion com todas as request que criei, executei o Newman htmlextra conforme consta na pasta .\Relatorios\Testes_API_RestFull_Booker-2024-11-25-02-26-26-605-0.html ([link para relatório Newman](https://github.com/adielpereiramachado/Teste_20241121/tree/main/Teste_API/Relatorios))
 
 
-## 7. Considerações finais:
+## 8. Considerações finais:
 - Gostei do desafio, acredito que por falta de tempo não consegui implementar tudo que gostaria e com mais Qualidade.
 
