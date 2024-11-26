@@ -1,10 +1,10 @@
-# Plano de Teste - WEB (UI)
+# Plano de Teste WEB (UI) - "1.3.1.1 Plano de testes estruturado com casos de teste"
 ***[E-COMMERCE SAUCE DEMO](https://www.saucedemo.com/)***
 
-*versão do documento: 1.1*
+*versão do documento: 1.2*
 
 ## 1. Objetivo:
-Este artefato descreve o plano de teste contra o site https://www.saucedemo.com. 
+Este artefato descreve o plano de teste contra o site https://www.saucedemo.com.<br>
 Contido neste trabalho, os principais fluxos e cenários de teste como veremos a seguir.
 
 
@@ -13,9 +13,16 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 - Site: https://www.saucedemo.com
 - Ambiente: Produção
 - Versão: Não identificada
+- Funcionalidades:
+  - 1.2.1 Login com diferentes tipos de usuários disponíveis 
+  - 1.2.2 Ordenação e filtragem de produtos 
+  - 1.2.3 Fluxo completo de compra (do carrinho até finalização) 
+  - 1.2.4 Remoção de itens do carrinho 
+  - 1.2.5 Navegação entre páginas 
+  - 1.2.6 Logout
 
 ## 3. Considerações iniciais:
-- Fiz videos para os testes onde estão disponíveis na pasta  [.\Envidencias](https://github.com/adielpereiramachado/Teste_20241121/tree/main/Teste_WEB/Evidencias)
+- Fiz videos para os testes onde estão disponíveis na pasta  [.\Envidencias](https://github.com/adielpereiramachado/Teste_20241121/tree/main/Teste_WEB/Evidencias) onde a nomeação do arquivo tem relação com o caso de teste.
 - Para classificação dos itens encontrados, adotei uma escla simples variando entre: Baixo, Médio e Alto.
 
 ## 4. Credênciais de Identificação dos Usuários para acesso ao portal utilizados nos testes:
@@ -26,7 +33,7 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 5. `error_user` - Usuário com algum problema.
 6. `visual_user` - Usuário que gera problema visual no Sistema.
 
-## 5. Casos de Teste - "1.3.1.2 Resultados dos testes executados"
+## 5. Casos de Teste - "1.2 Cenários mínimos a serem testados:"
 
 ### 5.1 Item: "1.2.1 Login com diferentes tipos de usuários disponíveis"
 
@@ -212,7 +219,7 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 
 
 
-### 5.8 Item: ista de Melhorias: "1.3.1.3 Sugestões de melhorias de UX/UI"
+### 5.8 Item: Lista de Melhorias: "1.3.1.3 Sugestões de melhorias de UX/UI"
 
 
 | ID de Execução | Descrição do teste passo a passo | Credencial utilizada no Teste | Resultado esperado | Resultado Obtido | Observação | Evidência | Severidade (téc.) | Impacto (p/ Usuários) |
@@ -224,7 +231,7 @@ Contido neste trabalho, os principais fluxos e cenários de teste como veremos a
 | R7-01 | Verificar comportamento do Sistema quando alterar ID de produto pela URL<br>1. Entrar na página de exibição dos produtos.<br>2. Clicar na foto de um produto.<br>3. Alterar o id do produto na URL para um inexistente e teclar "Enter".<br>4. Click no botão "Add to cart".<br>5. Clicar no ícone do carrinho de compras localizado no canto superior direito da página. | Username "standard_user" / Password: "secret_sauce" | Fazer alguma validação e não deixar adicionar ao carrinho um produto inexistente. | Após executar o passo 5, o Sistema tenta trocar de página mas não exibe mais nada. Saindo e retornando ainda consta o 'produto' no carrinho.<br>Tendo em vista a característica de não retirar o produto do carrinho ao fazer "Logout", fica impossível finalizar novas compras. Para sair dessa situação, deve-se entrar novamente no Sistema, selecionar um produto e alterar para o mesmo ID do produto inexistente, dessa forma o sistema vai exibir a foto de um cachorro como da primeira vez e basta clicar no botão 'Remove'. | Após executar o passo 3, o Sistema deveria confirmar se existe mesmo o ID passado e só exibir a tela com novas informações caso existisse o ID alterado e passo na URL passado.<br>Ou alguma ideia melhor que essa, o que não pode é continuar assim. | R7-01.mp4 | Alta | Alto |
 | R7-02 | Verificar comportamento do Sistema quando alterado nome do Usuário em configurações de Cookies<br>Verificar comportamento quando alterado id do produto<br>1. Entrar na página de exibição dos produtos.<br>2. Abrir opção do desenvolvedor no Browser.<br>3. Ir na opção "Application" > "Storage" > Cookies campo "Value".<br>4. Trocar de standard_user para visual_user. | Username "standard_user" / Password: "secret_sauce" | Não deixar vulnerável a troca do Usuário pelo Cookies | Após executar o passo 4 e voltando para a página do sistema, ele reage com as características do user inserido, neste caso apresentando problemas visuais. | Sistema não deveria permitir uma "troca" de usuário sem as devidas validações.<br>**(Melhoria)** Poderia ter validação de Captcha e/ou autenticação de 2 fatores para maior segurança. | R7-02.mp4 | Alta | Alto |
 
-## 5.8.1 Resumo dos principais Pontos de Melhoria:
+#### 5.8.1 Resumo dos principais Pontos de Melhoria:
 . Implementar função de "Loading" durante processos<br>
 . Melhorar usabilidade das mensagens de erro<br>
 . Adicionar opções de segurança como autenticação de dois fatores<br>
@@ -292,8 +299,11 @@ No entanto, executei uma avaliação com "PageSpeed Insights" do google, onde de
 
 
 ### 5.12 Item: "1.3.2.3 Sugestões de automação"
-Quando o assunto é automatização, acredito que o escopo do que se deve ou não ser automatizado, passa por alguns critérios.<br> Abaixo descrevo alguns começando pelos de maior relavância:<br>
-1.Fluxos onde se existir defeito, o impacto para o Negócio é grande (geralmente passa por assuntos de perda financeira, mas não só);<br>2. Fluxos onde se executa muitas vezes e/ou são muito longos e/ou demorados;<br>3. Fluxos onde a parte do Sistema demanda mais complexidade no código;<br>4.Fluxos onde sejá fácil mensuração de tempo/velocidade/duração para constante comparação (acada execução), assim possibilitando identificar o quanto antes algum problema quanto a performance.
+Quando o assunto é automação de teste, acredito que o escopo do que se deve ou não ser automatizado, passa por alguns critérios.<br> Abaixo descrevo alguns começando pelos de maior relavância:<br>
+1. Fluxos onde se existir defeito, o impacto para o Negócio é grande (geralmente passa por assuntos de perda financeira, mas não só);<br>
+2. Fluxos onde se executa muitas vezes e/ou são muito longos e/ou demorados;<br>
+3. Fluxos onde a parte do Sistema demanda mais complexidade no código;<br>
+4. Fluxos onde sejá fácil mensuração de tempo/velocidade/duração para constante comparação (acada execução), assim possibilitando identificar o quanto antes algum problema quanto a performance.
 
 Aqui deixo um exemplo prático bem simples, para ter uma noção do teste com Robotframework utilizando a Library Browser do Playwright (venho estudando recentemente essa combinação). O conteúdo está na pasta [.\Robotframework](https://github.com/adielpereiramachado/Teste_20241121/tree/main/Teste_WEB/Robotframework)
 
@@ -310,9 +320,9 @@ Para executar o script do Robotframework tem que ter instalado:<br>
 6. Executar o comando: npm install @playwright/test
 7. Executar o comando: npx playwright install-deps
 
-Agora na mesma pasta que estiver os script executar: robot -d Logs .\Teste_SauceDemo.robot<br>
+Agora na mesma pasta que estiver os script executar: "robot -d Logs .\Teste_SauceDemo.robot"<br>
 Esse comando executa com as variaveis definidas como estão no código, que no caso passa para logar no sistema o Usuário "standard_user".<br>
-Caso queira executar com o Usuário "performance_glitch_user" para simular um defeito por demorar mais que 3 seg para logar (configurei para aguardar no máximo 3 seg entre as interações), então execute o comando: robot -d Logs -v USUARIO:performance_glitch_user .\Teste_SauceDemo.robot
+Caso queira executar com o Usuário "performance_glitch_user" para simular um defeito por demorar mais que 3 seg para logar (configurei para aguardar no máximo 3 seg entre as interações), então execute o comando: "robot -d Logs -v USUARIO:performance_glitch_user .\Teste_SauceDemo.robot"
 
 
 
